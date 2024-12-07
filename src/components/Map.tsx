@@ -2,7 +2,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import LocationMarker from "./LocationMarker";
 import 'leaflet/dist/leaflet.css';
 
-function Map() {
+function Map({onMarkerChange}: any) {
     return (
         <div className="fixed h-full w-full">
             <MapContainer
@@ -14,7 +14,7 @@ function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <LocationMarker />
+            <LocationMarker onMarkerChange={onMarkerChange} />
         </MapContainer>
         </div>
     );
