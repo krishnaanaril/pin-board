@@ -1,6 +1,5 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import LocationMarker from "./LocationMarker";
-import 'leaflet/dist/leaflet.css';
 
 function Map({onMarkerChange}: any) {
     return (
