@@ -2,16 +2,11 @@ import { Bookmark, MapPinPlus, Share } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
-import { useState } from "react";
+import usePinBoardStore from "@/store/pinboard-store";
 
 
 function Home() {
-    const [position, setPosition] = useState(null)
-
-    function onMarkerChange(e: any) {
-        setPosition(e);
-        console.log(e);
-    }
+    const {activePosition} = usePinBoardStore();    
 
     function getGeoIntent(position: any, label: string): string {
         return position ? 
@@ -21,7 +16,7 @@ function Home() {
 
     return (
         <div className="h-screen w-screen">
-            <Map onMarkerChange={onMarkerChange}/>
+            <Map/>
             <div className="fixed w-full bottom-6 flex place-content-evenly">
                 <Button>
                     <Bookmark />
@@ -31,8 +26,8 @@ function Home() {
                     <MapPinPlus />
                     Add
                 </Button>
-                <Button disabled={!position} asChild>
-                    <Link to={getGeoIntent(position, 'Pin Board')} target="_blank">
+                <Button disabled={!activePosition} asChild>
+                    <Link to={getGeoIntent(activePosition, 'Pin Board')} target="_blank">
                         <Share />
                         Share
                     </Link>
