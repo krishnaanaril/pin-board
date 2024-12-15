@@ -1,5 +1,4 @@
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
-import { Label } from "./ui/label";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MapPinPlus } from "lucide-react";
@@ -86,16 +85,8 @@ function SaveLocation() {
                         <SheetFooter>
                             <Button type="submit">Save</Button>
                         </SheetFooter>
-                        {/* <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-                            <Button type="submit">Save</Button>
-                        </div> */}
                     </form>
                 </Form>
-                {/* <SheetFooter>
-                    <SheetClose asChild>
-                        <Button type="submit">Save</Button>
-                    </SheetClose>
-                </SheetFooter> */}
             </SheetContent>
         </Sheet>
 
