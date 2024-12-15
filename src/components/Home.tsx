@@ -1,9 +1,9 @@
-import { Bookmark, MapPinPlus, Share } from "lucide-react";
+import { Bookmark, Share } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
-
+import SaveLocation from "./SaveLocation";
 
 function Home() {
     const { activePosition } = usePinBoardStore();
@@ -24,16 +24,14 @@ function Home() {
                         Saved
                     </Link>
                 </Button>
-                <Button>
-                    <MapPinPlus />
-                    Add
-                </Button>
+                <SaveLocation/>
                 <Button disabled={!activePosition} asChild>
                     <Link to={getGeoIntent(activePosition, 'Pin Board')} target="_blank">
                         <Share />
                         Share
                     </Link>
                 </Button>
+
             </div>
         </div>
     );
