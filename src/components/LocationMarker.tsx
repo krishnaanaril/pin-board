@@ -19,8 +19,19 @@ function LocationMarker() {
     });
 
     useEffect(() => {
-        map.locate();
-    }, [map]);
+        if(!activePosition) {           
+            console.log('map locate') ;
+            map.locate();
+        } else {
+            console.log(activePosition);
+            map.flyTo(activePosition, map.getZoom());
+        }
+    }, [map, activePosition]);
+
+    // useEffect(() => {
+    //     console.log('Location Marker');
+    //     console.log(activePosition);
+    // }, [activePosition]);
 
     return activePosition === null ? null : (
         <Marker position={activePosition}>

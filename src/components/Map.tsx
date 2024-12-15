@@ -1,12 +1,16 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import LocationMarker from "./LocationMarker";
 import MapPlaceholder from "./MapPlaceholder";
+import usePinBoardStore from "@/store/pinboard-store";
 
 function Map() {
+
+    const {activePosition} = usePinBoardStore();
+
     return (
         <div className="fixed h-full w-full">
             <MapContainer
-            center={{ lat: 51.505, lng: -0.09 }}
+            center={{ lat: activePosition?.lat ?? 51.505, lng: activePosition?.lng ?? -0.09 }}
             zoom={13}
             scrollWheelZoom={false}
             style={{ height: '100%', width: '100%'}}

@@ -1,12 +1,34 @@
 import { Bookmark, Share } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
-import { Link } from "react-router";
+import { Link, useLocation, useSearchParams } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import SaveLocation from "./SaveLocation";
+import { LatLng, LocationDetails } from "@/store/model";
+import { useEffect } from "react";
 
 function Home() {
-    const { activePosition } = usePinBoardStore();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { savedLocations, activePosition, updateActivePosition } = usePinBoardStore();
+    const location = useLocation();
+
+    useEffect(() => {
+        const idQuery = searchParams.get('id');
+        const defaultPosition: LatLng = {
+            lat: 51.505,
+            lng: -0.09
+        };
+
+        const id: number | undefined = idQuery ? parseInt(idQuery) : undefined;
+        const currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
+
+        if(currentLocation) {
+            const currentPosition = currentLocation.position ?? defaultPosition;
+            console.log(currentPosition);
+            updateActivePosition(currentPosition);
+        }
+    }, [location]);
 
     function getGeoIntent(position: any, label: string): string {
         return position ?
@@ -24,7 +46,7 @@ function Home() {
                         Saved
                     </Link>
                 </Button>
-                <SaveLocation/>
+                <SaveLocation />
                 <Button disabled={!activePosition} asChild>
                     <Link to={getGeoIntent(activePosition, 'Pin Board')} target="_blank">
                         <Share />

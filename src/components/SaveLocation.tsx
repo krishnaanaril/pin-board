@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
+import { useToast } from "@/hooks/use-toast";
 
 function SaveLocation() {
     // form = { register, handleSubmit, watch, formState: { errors }, control }
@@ -23,20 +24,23 @@ function SaveLocation() {
         reValidateMode: 'onSubmit'
     })
     const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
-        console.log(data);
+        console.log(data);        
         const newName: string = data.name.trim();
         const alreadyExists: boolean = savedLocations.some(location => location.name === newName);
-        if(!alreadyExists) {            
+        if (!alreadyExists) {
             const nextId: number = (savedLocations?.at(-1)?.id ?? 0) + 1;
             const newLocation: LocationDetails = {
                 id: nextId,
-                name: newName, 
-                note: data.note, 
-                createdAt: Date.now(), 
+                name: newName,
+                note: data.note,
+                createdAt: Date.now(),
                 updatedAt: Date.now(),
                 position: activePosition
             };
             addSavedLocation(newLocation);
+            toast({
+                description: "Location saved successfully",
+            });
         }
         form.reset();
         setOpen(false);
@@ -47,6 +51,7 @@ function SaveLocation() {
 
     const [open, setOpen] = useState(false);
     const { savedLocations, activePosition, addSavedLocation } = usePinBoardStore();
+    const { toast } = useToast()
 
     return (
 
