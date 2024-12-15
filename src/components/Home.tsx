@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 function Home() {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const { savedLocations, activePosition, updateActivePosition } = usePinBoardStore();
     const location = useLocation();
 

@@ -7,7 +7,7 @@ const pinBoardMiddlewares = (f: StateCreator<PinBoardState, [], []>) => devtools
 const PinBoardStateCreatorFn = (set: any) => ({
     savedLocations: [],
     activePosition: null,
-    updateActivePosition: (newPosition: LatLng) => set((state: PinBoardState) => ({ activePosition: newPosition })),
+    updateActivePosition: (newPosition: LatLng) => set(() => ({ activePosition: newPosition })),
     addSavedLocation: (newLocation: LocationDetails) => {
         set((state: PinBoardState) => ({ savedLocations: [...state.savedLocations, newLocation] }));
     },
