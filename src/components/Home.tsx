@@ -6,21 +6,23 @@ import usePinBoardStore from "@/store/pinboard-store";
 
 
 function Home() {
-    const {activePosition} = usePinBoardStore();    
+    const { activePosition } = usePinBoardStore();
 
     function getGeoIntent(position: any, label: string): string {
-        return position ? 
-        `geo:${position.lat},${position.lng}?q=${position.lat},${position.lng}(${label})` :
-        '';
+        return position ?
+            `geo:${position.lat},${position.lng}?q=${position.lat},${position.lng}(${label})` :
+            '';
     }
 
     return (
         <div className="h-screen w-screen">
-            <Map/>
+            <Map />
             <div className="fixed w-full bottom-6 flex place-content-evenly">
-                <Button>
-                    <Bookmark />
-                    Saved
+                <Button asChild>
+                    <Link to="/saved">
+                        <Bookmark />
+                        Saved
+                    </Link>
                 </Button>
                 <Button>
                     <MapPinPlus />

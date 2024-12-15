@@ -6,9 +6,7 @@ import { Marker, Popup, useMapEvents } from "react-leaflet"
 function LocationMarker() {    
     const {activePosition,  updateActivePosition} = usePinBoardStore();
     const map = useMapEvents({
-        click(e: any) {
-            console.log(e);
-            console.log(e.latlng);
+        click(e: any) {            
             updateActivePosition(e.latlng);
         },
         locationerror(e: any) {
