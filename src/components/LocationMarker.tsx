@@ -1,30 +1,40 @@
-import { useEffect, useState } from "react"
+import usePinBoardStore from "@/store/pinboard-store";
+import { useEffect } from "react"
 import { Marker, Popup, useMapEvents } from "react-leaflet"
 
-function LocationMarker({onMarkerChange}: any) {
-    const [position, setPosition] = useState(null)
+
+function LocationMarker() {    
+    const {activePosition,  updateActivePosition} = usePinBoardStore();
     const map = useMapEvents({
-        click(e: any) {
-            console.log(e.latlng);
-            setPosition(e.latlng);
-            onMarkerChange(e.latlng);
+        click(e: any) {            
+            updateActivePosition(e.latlng);
         },
         locationerror(e: any) {
             console.error(e);
         },
         locationfound(e: any) {
-            setPosition(e.latlng);
-            onMarkerChange(e.latlng);
+            updateActivePosition(e.latlng);
             map.flyTo(e.latlng, map.getZoom());
         },
     });
 
     useEffect(() => {
-        map.locate();
-    }, [map]);
+        if(!activePosition) {           
+            console.log('map locate') ;
+            map.locate();
+        } else {
+            console.log(activePosition);
+            map.flyTo(activePosition, map.getZoom());
+        }
+    }, [map, activePosition]);
 
-    return position === null ? null : (
-        <Marker position={position}>
+    // useEffect(() => {
+    //     console.log('Location Marker');
+    //     console.log(activePosition);
+    // }, [activePosition]);
+
+    return activePosition === null ? null : (
+        <Marker position={activePosition}>
             <Popup>You are here</Popup>
         </Marker>
     )
