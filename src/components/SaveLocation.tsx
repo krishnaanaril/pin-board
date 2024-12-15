@@ -12,13 +12,16 @@ import { useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 
-function SaveLocation() {
+function SaveLocation({ location } : { location?: LocationDetails }) {
+
+    const action : string = location ? 'Edit' : 'Add';
+
     // form = { register, handleSubmit, watch, formState: { errors }, control }
     const form = useForm<z.infer<typeof LocationFormSchema>>({
         resolver: zodResolver(LocationFormSchema),
         defaultValues: {
-            name: "",
-            note: ""
+            name: location?.name ?? "",
+            note: location?.note ?? ""
         },
         mode: 'onSubmit',
         reValidateMode: 'onSubmit'
@@ -39,7 +42,20 @@ function SaveLocation() {
             };
             addSavedLocation(newLocation);
             toast({
-                description: "Location saved successfully",
+                description: "Location added successfully",
+            });
+        } else if (action === 'Edit') {
+            const newLocation: LocationDetails = {
+                id: location!.id,
+                name: newName,
+                note: data.note,
+                createdAt: location!.createdAt,
+                updatedAt: Date.now(),
+                position: location!.position
+            };
+            updateSavedLocation(location!.id, newLocation);
+            toast({
+                description: "Location updated successfully",
             });
         }
         form.reset();
@@ -50,7 +66,7 @@ function SaveLocation() {
     };
 
     const [open, setOpen] = useState(false);
-    const { savedLocations, activePosition, addSavedLocation } = usePinBoardStore();
+    const { savedLocations, activePosition, addSavedLocation, updateSavedLocation } = usePinBoardStore();
     const { toast } = useToast()
 
     return (
@@ -59,7 +75,7 @@ function SaveLocation() {
             <SheetTrigger asChild>
                 <Button>
                     <MapPinPlus />
-                    Add
+                    {action}
                 </Button>
             </SheetTrigger>
             <SheetContent side="bottom">

@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Link } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
+import SaveLocation from "./SaveLocation";
 
 function LocationCard({ location }: { location: LocationDetails }) {
 
@@ -24,7 +25,7 @@ function LocationCard({ location }: { location: LocationDetails }) {
                         View
                     </Link>
                 </Button>
-                <Button>Edit</Button>
+                <SaveLocation location={location}/>
                 <Button onClick={() => onDelete(location.id)}>Delete</Button>
             </CardFooter>
         </Card>

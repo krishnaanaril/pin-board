@@ -46,7 +46,7 @@ function Home() {
                         Saved
                     </Link>
                 </Button>
-                <SaveLocation />
+                <SaveLocation/>
                 <Button disabled={!activePosition} asChild>
                     <Link to={getGeoIntent(activePosition, 'Pin Board')} target="_blank">
                         <Share />
