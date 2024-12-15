@@ -80,9 +80,9 @@ function SaveLocation({ location } : { location?: LocationDetails }) {
             </SheetTrigger>
             <SheetContent side="bottom">
                 <SheetHeader>
-                    <SheetTitle>Save Location</SheetTitle>
+                    <SheetTitle>{action} Location</SheetTitle>
                     <SheetDescription>
-                        Save the selected location by adding a name and note.
+                        {action} the selected location by entering a name and note.
                     </SheetDescription>
                 </SheetHeader>
                 <Form {...form}>
