@@ -9,7 +9,7 @@ export interface LocationDetails {
     id: number,
     name: string,
     note: string,
-    position: LatLng
+    position: LatLng | null,
     createdAt: number,
     updatedAt: number
 }

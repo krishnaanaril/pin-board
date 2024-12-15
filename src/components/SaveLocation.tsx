@@ -3,12 +3,13 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MapPinPlus } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import { LocationFormSchema } from "@/store/model";
+import { LocationDetails, LocationFormSchema } from "@/store/model";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { useState } from "react";
+import usePinBoardStore from "@/store/pinboard-store";
 
 function SaveLocation() {
     // form = { register, handleSubmit, watch, formState: { errors }, control }
@@ -23,6 +24,20 @@ function SaveLocation() {
     })
     const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
         console.log(data);
+        const newName: string = data.name.trim();
+        const alreadyExists: boolean = savedLocations.some(location => location.name === newName);
+        if(!alreadyExists) {            
+            const nextId: number = (savedLocations?.at(-1)?.id ?? 0) + 1;
+            const newLocation: LocationDetails = {
+                id: nextId,
+                name: newName, 
+                note: data.note, 
+                createdAt: Date.now(), 
+                updatedAt: Date.now(),
+                position: activePosition
+            };
+            addSavedLocation(newLocation);
+        }
         form.reset();
         setOpen(false);
     };
@@ -31,6 +46,7 @@ function SaveLocation() {
     };
 
     const [open, setOpen] = useState(false);
+    const { savedLocations, activePosition, addSavedLocation } = usePinBoardStore();
 
     return (
 
