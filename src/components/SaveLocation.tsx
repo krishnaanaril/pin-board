@@ -8,7 +8,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 
@@ -58,7 +58,15 @@ function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
         },
         mode: 'onSubmit',
         reValidateMode: 'onSubmit'
-    })
+    });
+
+    useEffect(() => {
+        form.reset({
+            name: editLocation?.name ?? "",
+            note: editLocation?.note ?? ""
+        });
+    }, [editLocation]);
+
     const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {             
         const newName: string = data.name.trim();
         if (action === 'Edit') {

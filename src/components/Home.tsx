@@ -1,4 +1,4 @@
-import { Bookmark, Share } from "lucide-react";
+import { Bookmark, Share, LocateFixed } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
 import { Link, useLocation, useSearchParams } from "react-router";
@@ -36,9 +36,16 @@ function Home() {
             '';
     }
 
+    function goToCurrentLocation() {
+        updateActivePosition(null);
+    }
+
     return (
         <div className="h-screen w-screen">
             <Map />
+            <Button className="fixed bottom-20 right-6" onClick={goToCurrentLocation}>
+                <LocateFixed size={64}/>                
+            </Button>
             <div className="fixed w-full bottom-6 flex place-content-evenly">
                 <Button asChild>
                     <Link to="/saved">

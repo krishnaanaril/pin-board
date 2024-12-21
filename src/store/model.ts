@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export interface LatLng {
     lat: number,
     lng: number
@@ -17,7 +15,7 @@ export interface LocationDetails {
 export interface PinBoardState {
     savedLocations: LocationDetails[];
     activePosition: LatLng | null;
-    updateActivePosition: (newPosition: LatLng) => void;
+    updateActivePosition: (newPosition: LatLng | null) => void;
     addSavedLocation: (newLocation: LocationDetails) => void;
     updateSavedLocation: (id: number, newLocation: LocationDetails) => void;
     deleteSavedLocation: (id: number) => void;
