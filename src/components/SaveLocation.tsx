@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MapPinPlus } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import { LocationDetails, LocationFormSchema } from "@/store/model";
+import { LocationDetails } from "@/store/model";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,25 +12,69 @@ import { useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 
-function SaveLocation({ location } : { location?: LocationDetails }) {
+function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
 
-    const action : string = location ? 'Edit' : 'Add';
+    const action : 'Edit' | 'Add' = editLocation ? 'Edit' : 'Add';
+
+    const LocationFormSchema = z.object({
+        name: z.string()
+            .nonempty("Location name is required")
+            .min(3, {
+                message: "Location name must be at least 3 characters.",
+            })
+            .max(50, "Location name should be shorter than 50 chars.")
+            .superRefine((val: any, ctx: any) => {
+                const nameAlreadyExists: boolean = (action== "Add" && savedLocations.some(location => location.name === val.trim()))
+                || (action == "Edit" && savedLocations.some(location => location.name === val.trim() && location.id !== editLocation?.id));
+                if(nameAlreadyExists) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "Location name must be unique"
+                    });
+                }
+            }),
+        note: z.string(),
+    })
+    .superRefine(( _ , ctx: any) => {
+        const locationExists = action== "Add" && savedLocations
+        .find(location => 
+            location.position?.lat === activePosition?.lat && location.position?.lng === activePosition?.lng
+        );
+        if(locationExists) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `Co-ordinate already added as '${locationExists.name}'`,
+                path: ['name']
+            });
+        }
+    });
 
     // form = { register, handleSubmit, watch, formState: { errors }, control }
     const form = useForm<z.infer<typeof LocationFormSchema>>({
         resolver: zodResolver(LocationFormSchema),
         defaultValues: {
-            name: location?.name ?? "",
-            note: location?.note ?? ""
+            name: editLocation?.name ?? "",
+            note: editLocation?.note ?? ""
         },
         mode: 'onSubmit',
         reValidateMode: 'onSubmit'
     })
-    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
-        console.log(data);        
+    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {             
         const newName: string = data.name.trim();
-        const alreadyExists: boolean = savedLocations.some(location => location.name === newName);
-        if (!alreadyExists) {
+        if (action === 'Edit') {
+            const newLocation: LocationDetails = {
+                id: editLocation!.id,
+                name: newName,
+                note: data.note,
+                createdAt: editLocation!.createdAt,
+                updatedAt: Date.now(),
+                position: editLocation!.position
+            };
+            updateSavedLocation(editLocation!.id, newLocation);
+            toast({
+                description: "Location updated successfully",
+            });
+        } else {
             const nextId: number = (savedLocations?.at(-1)?.id ?? 0) + 1;
             const newLocation: LocationDetails = {
                 id: nextId,
@@ -43,19 +87,6 @@ function SaveLocation({ location } : { location?: LocationDetails }) {
             addSavedLocation(newLocation);
             toast({
                 description: "Location added successfully",
-            });
-        } else if (action === 'Edit') {
-            const newLocation: LocationDetails = {
-                id: location!.id,
-                name: newName,
-                note: data.note,
-                createdAt: location!.createdAt,
-                updatedAt: Date.now(),
-                position: location!.position
-            };
-            updateSavedLocation(location!.id, newLocation);
-            toast({
-                description: "Location updated successfully",
             });
         }
         form.reset();

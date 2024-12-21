@@ -25,7 +25,7 @@ function LocationCard({ location }: { location: LocationDetails }) {
                         View
                     </Link>
                 </Button>
-                <SaveLocation location={location}/>
+                <SaveLocation editLocation={location}/>
                 <Button onClick={() => onDelete(location.id)}>Delete</Button>
             </CardFooter>
         </Card>
