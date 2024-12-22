@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MapPinPlus } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import { LocationDetails } from "@/store/model";
+import { ListDetails, LocationDetails } from "@/store/model";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,10 +11,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { useEffect, useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 
-function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
+function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
-    const action : 'Edit' | 'Add' = editLocation ? 'Edit' : 'Add';
+    const action: 'Edit' | 'Add' = editLocation ? 'Edit' : 'Add';
 
     const LocationFormSchema = z.object({
         name: z.string()
@@ -24,30 +25,31 @@ function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
             })
             .max(50, "Location name should be shorter than 50 chars.")
             .superRefine((val: any, ctx: any) => {
-                const nameAlreadyExists: boolean = (action== "Add" && savedLocations.some(location => location.name === val.trim()))
-                || (action == "Edit" && savedLocations.some(location => location.name === val.trim() && location.id !== editLocation?.id));
-                if(nameAlreadyExists) {
+                const nameAlreadyExists: boolean = (action == "Add" && savedLocations.some(location => location.name === val.trim()))
+                    || (action == "Edit" && savedLocations.some(location => location.name === val.trim() && location.id !== editLocation?.id));
+                if (nameAlreadyExists) {
                     ctx.addIssue({
                         code: z.ZodIssueCode.custom,
                         message: "Location name must be unique"
                     });
                 }
             }),
+        list: z.number(),
         note: z.string(),
     })
-    .superRefine(( _ , ctx: any) => {
-        const locationExists = action== "Add" && savedLocations
-        .find(location => 
-            location.position?.lat === activePosition?.lat && location.position?.lng === activePosition?.lng
-        );
-        if(locationExists) {
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: `Co-ordinate already added as '${locationExists.name}'`,
-                path: ['name']
-            });
-        }
-    });
+        .superRefine((_, ctx: any) => {
+            const locationExists = action == "Add" && savedLocations
+                .find(location =>
+                    location.position?.lat === activePosition?.lat && location.position?.lng === activePosition?.lng
+                );
+            if (locationExists) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: `Co-ordinate already added as '${locationExists.name}'`,
+                    path: ['name']
+                });
+            }
+        });
 
     // form = { register, handleSubmit, watch, formState: { errors }, control }
     const form = useForm<z.infer<typeof LocationFormSchema>>({
@@ -63,17 +65,19 @@ function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
     useEffect(() => {
         form.reset({
             name: editLocation?.name ?? "",
-            note: editLocation?.note ?? ""
+            note: editLocation?.note ?? "",
+            list: editLocation?.listId ?? 1
         });
     }, [editLocation]);
 
-    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {             
+    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
         const newName: string = data.name.trim();
         if (action === 'Edit') {
             const newLocation: LocationDetails = {
                 id: editLocation!.id,
                 name: newName,
                 note: data.note,
+                listId: editLocation!.listId ?? 1,
                 createdAt: editLocation!.createdAt,
                 updatedAt: Date.now(),
                 position: editLocation!.position
@@ -88,6 +92,7 @@ function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
                 id: nextId,
                 name: newName,
                 note: data.note,
+                listId: data.list,
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 position: activePosition
@@ -105,7 +110,7 @@ function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
     };
 
     const [open, setOpen] = useState(false);
-    const { savedLocations, activePosition, addSavedLocation, updateSavedLocation } = usePinBoardStore();
+    const { savedLocations, activePosition, savedLists, addSavedLocation, updateSavedLocation } = usePinBoardStore();
     const { toast } = useToast()
 
     return (
@@ -134,6 +139,38 @@ function SaveLocation({ editLocation } : { editLocation?: LocationDetails }) {
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Location Name" {...field} className="col-span-3" />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Enter a unique name
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        {/* {savedLists.map((list: ListDetails) => <div>{list.name}</div>)} */}
+                        <FormField
+                            control={form.control}
+                            name="list"
+                            render={({ field }) => (
+                                <FormItem className="my-4">
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        {/* <Input placeholder="Location Name" {...field} className="col-span-3" /> */}
+                                        <Select onValueChange={field.onChange} value={field.value?.toString()}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a list" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>Lists</SelectLabel>
+                                                    {savedLists.map((list) => (
+                                                        <SelectItem key={list.id} value={list.id.toString()}>
+                                                            {list.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
                                     </FormControl>
                                     <FormDescription>
                                         Enter a unique name

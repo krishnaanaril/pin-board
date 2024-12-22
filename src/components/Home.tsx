@@ -1,4 +1,4 @@
-import { Bookmark, Share, LocateFixed } from "lucide-react";
+import { Bookmark, Share, LocateFixed, List } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
 import { Link, useLocation, useSearchParams } from "react-router";
@@ -51,6 +51,12 @@ function Home() {
                     <Link to="/saved">
                         <Bookmark />
                         Saved
+                    </Link>
+                </Button>
+                <Button asChild>
+                    <Link to="/lists">
+                        <List />
+                        Lists
                     </Link>
                 </Button>
                 <SaveLocation/>
