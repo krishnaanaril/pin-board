@@ -11,7 +11,7 @@ function Map() {
         <div className="fixed h-full w-full">
             <MapContainer
             center={{ lat: activePosition?.lat ?? 51.505, lng: activePosition?.lng ?? -0.09 }}
-            zoom={13}
+            zoom={16}
             scrollWheelZoom={false}
             style={{ height: '100%', width: '100%'}}
             placeholder={<MapPlaceholder />}>
