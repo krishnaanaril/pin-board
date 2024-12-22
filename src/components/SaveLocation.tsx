@@ -87,7 +87,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 description: "Location updated successfully",
             });
         } else {
-            const nextId: number = (savedLocations?.at(-1)?.id ?? 0) + 1;
+            const nextId: number = savedLocations.length > 0 ? Math.max(...savedLocations.map(location => location.id)) + 1 : 1;
             const newLocation: LocationDetails = {
                 id: nextId,
                 name: newName,
@@ -156,7 +156,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         {/* <Input placeholder="Location Name" {...field} className="col-span-3" /> */}
-                                        <Select onValueChange={field.onChange} value={field.value?.toString()}>
+                                        <Select value={field.value?.toString()}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select a list" />
                                             </SelectTrigger>
