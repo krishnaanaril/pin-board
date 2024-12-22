@@ -120,7 +120,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <Button>
+                 <Button id={`${action.toLowerCase()}-location-button`}>
                     <MapPinPlus />
                     {action}
                 </Button>
@@ -198,7 +198,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                             )}
                         />
                         <SheetFooter>
-                            <Button type="submit">Save</Button>
+                            <Button id="save-button" type="submit">Save</Button>
                         </SheetFooter>
                     </form>
                 </Form>

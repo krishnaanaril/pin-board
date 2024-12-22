@@ -45,30 +45,29 @@ function Home() {
     return (
         <div className="h-screen w-screen">
             <Map />
-            <Button className="fixed bottom-20 right-6" onClick={goToCurrentLocation}>
+            <Button id="current-location-button" className="fixed bottom-20 right-6" onClick={goToCurrentLocation}>
                 <LocateFixed size={64}/>                
             </Button>
             <div className="fixed w-full bottom-0 py-4 flex place-content-evenly bg-opacity-50 backdrop-blur-lg">
-                <Button asChild>
-                    <Link to="/saved">
+                <Button id="saved-locations-button" asChild>
+                    <Link id="saved-link" to="/saved">
                         <Bookmark />
                         Saved
                     </Link>
                 </Button>
-                <Button asChild>
-                    <Link to="/lists">
+                <Button id="lists-button" asChild>
+                    <Link id="lists-link" to="/lists">
                         <List />
                         Lists
                     </Link>
                 </Button>
                 <SaveLocation/>
-                <Button disabled={!activePosition} asChild>
-                    <Link to={getGeoIntent(activePosition, currentLocation?.name ?? 'Pin Board')} target="_blank">
+                <Button id="share-location-button" disabled={!activePosition} asChild>
+                    <Link id="share-link"to={getGeoIntent(activePosition, currentLocation?.name ?? 'Pin Board')} target="_blank">
                         <Share />
                         Share
                     </Link>
                 </Button>
-
             </div>
         </div>
     );

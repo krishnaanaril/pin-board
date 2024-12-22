@@ -29,13 +29,13 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                 {list.description}
             </CardContent>
             <CardFooter className="flex justify-between">
-                <Button>
+                <Button id="view-button">
                     <Link to={`/saved?listId=${list.id}`}>
                         View
                     </Link>
                 </Button>
                 <SaveList editList={list} />
-                <Button onClick={() => handleDeleteClick(list)}>Delete</Button>
+                <Button id="delete-button" onClick={() => handleDeleteClick(list)}>Delete</Button>
             </CardFooter>
         </Card>
     );

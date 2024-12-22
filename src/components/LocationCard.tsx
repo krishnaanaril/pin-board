@@ -26,13 +26,13 @@ function LocationCard({ location }: { location: LocationDetails }) {
                 <CardDescription>{location.note}</CardDescription>
             </CardHeader>
             <CardFooter className="flex justify-between">
-                <Button>
+                <Button id="view-button">
                     <Link to={`/?id=${location.id}`}>
                         View
                     </Link>
                 </Button>
                 <SaveLocation editLocation={location}/>
-                <Button onClick={() => handleDeleteClick(location)}>Delete</Button>
+                <Button id="delete-button" onClick={() => handleDeleteClick(location)}>Delete</Button>
             </CardFooter>
         </Card>
     );

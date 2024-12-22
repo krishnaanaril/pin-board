@@ -92,7 +92,7 @@ function SaveList({ editList }: { editList?: ListDetails }) {
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <Button>
+                <Button id={`${action.toLowerCase()}-list-button`}>
                     <ListPlus />
                     {action}
                 </Button>
@@ -139,7 +139,7 @@ function SaveList({ editList }: { editList?: ListDetails }) {
                             )}
                         />
                         <SheetFooter>
-                            <Button type="submit">Save</Button>
+                            <Button id="save-button" type="submit">Save</Button>
                         </SheetFooter>
                     </form>
                 </Form>
