@@ -12,8 +12,6 @@ function Saved() {
     const [searchParams] = useSearchParams();
     const location = useLocation();
 
-    // let locations: React.JSX.Element = <></>;
-
     const [locations, setLocations] = useState<React.JSX.Element[]>([]);
 
     useEffect(() => {
@@ -22,19 +20,23 @@ function Saved() {
             ? savedLocations.filter(location => location.listId === listId)
             : savedLocations;
 
-        setLocations(filteredLocations.map(location => <LocationCard key={location.id} location={location}/>));
+        setLocations(filteredLocations.map(location => <LocationCard key={location.id} location={location} />));
     }, [location, searchParams, savedLocations]);
+
+    function handleBackClick() {
+        window.history.back();
+    }
 
     return (
         <>
-            <PageHeader headerText="Saved Places"/>
+            <PageHeader headerText="Saved Places" />
             {locations}
             <div className="fixed w-full bottom-6 flex place-content-evenly">
-            <Button asChild>
-                    <Link to="/">
+                <Button onClick={handleBackClick} asChild>
+                    <div>
                         <ArrowLeft />
                         Back
-                    </Link>
+                    </div>
                 </Button>
             </div>
         </>
