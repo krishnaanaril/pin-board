@@ -5,6 +5,7 @@ import usePinBoardStore from "@/store/pinboard-store";
 import LocationCard from "./LocationCard";
 import { useEffect, useState } from "react";
 import PageHeader from "./PageHeader";
+import PageFooter from "./PageFooter";
 
 function Saved() {
 
@@ -15,7 +16,7 @@ function Saved() {
     const [locations, setLocations] = useState<React.JSX.Element[]>([]);
 
     useEffect(() => {
-        const listId = searchParams.get("listId") ? Number(searchParams.get("listId")) : null;
+        const listId = searchParams.get("listId") ? searchParams.get("listId") : null;
         const filteredLocations = listId
             ? savedLocations.filter(location => location.listId === listId)
             : savedLocations;
@@ -28,9 +29,18 @@ function Saved() {
     }
 
     return (
-        <>
+        <div className="h-screen w-screen">
             <PageHeader headerText="Saved Places" />
-            {locations}
+            <div className="min-h-screen">
+                {locations}
+                {locations.length === 0 && (
+                    <div className="flex flex-col justify-center items-center p-4">
+                        <img className="size-48" src="/public/nodata.svg" alt="No data" />
+                        <p className="text-center text-xl font-bold my-2">No saved locations found</p>
+                    </div>
+                )}
+            </div>
+            <PageFooter/>
             <div className="fixed w-full bottom-0 py-4 flex place-content-evenly bg-opacity-50 backdrop-blur-lg">
                 <Button onClick={handleBackClick} asChild>
                     <div>
@@ -39,7 +49,7 @@ function Saved() {
                     </div>
                 </Button>
             </div>
-        </>
+        </div>
     )
 }
 

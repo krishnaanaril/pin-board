@@ -11,6 +11,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { getUniqueId } from "@/lib/helpers";
 
 function SaveList({ editList }: { editList?: ListDetails }) {
 
@@ -58,7 +59,7 @@ function SaveList({ editList }: { editList?: ListDetails }) {
 
     const onSubmit: SubmitHandler<z.infer<typeof ListFormSchema>> = data => {
         if (action === 'Add') {
-            const nextId: number = savedLists.length > 0 ? Math.max(...savedLists.map(list => list.id)) + 1 : 1;
+            const nextId: string = getUniqueId();
             addListItem({
                 id: nextId,
                 name: data.name.trim(),

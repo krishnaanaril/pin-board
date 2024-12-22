@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import { getUniqueId } from "@/lib/helpers";
 
 function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
@@ -79,7 +80,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 id: editLocation!.id,
                 name: newName,
                 note: data.note,
-                listId: parseInt(data.list) ?? 1,
+                listId: data.list ?? '1',
                 createdAt: editLocation!.createdAt,
                 updatedAt: Date.now(),
                 position: editLocation!.position
@@ -89,12 +90,12 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 description: "Location updated successfully",
             });
         } else {
-            const nextId: number = savedLocations.length > 0 ? Math.max(...savedLocations.map(location => location.id)) + 1 : 1;
+            const nextId: string = getUniqueId();
             const newLocation: LocationDetails = {
                 id: nextId,
                 name: newName,
                 note: data.note,
-                listId: parseInt(data.list),
+                listId: data.list,
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 position: activePosition

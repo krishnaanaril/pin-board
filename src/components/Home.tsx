@@ -20,7 +20,7 @@ function Home() {
             lng: -0.09
         };
 
-        const id: number | undefined = idQuery ? parseInt(idQuery) : undefined;
+        const id: string | undefined = idQuery ? idQuery : undefined;
         const currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
 
         if(currentLocation) {
