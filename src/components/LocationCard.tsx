@@ -4,10 +4,20 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/c
 import { Link } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import SaveLocation from "./SaveLocation";
+import { useToast } from "@/hooks/use-toast";
 
 function LocationCard({ location }: { location: LocationDetails }) {
 
-    const { deleteSavedLocation } = usePinBoardStore();    
+    const { deleteSavedLocation } = usePinBoardStore();
+    const { toast } = useToast();   
+    
+    function handleDeleteClick(list: LocationDetails) {
+        deleteSavedLocation(list.id);
+            toast({
+                variant: "destructive",
+                description: `List '${list.name}' deleted.`,
+            });
+        }
 
     return (
         <Card>
@@ -22,7 +32,7 @@ function LocationCard({ location }: { location: LocationDetails }) {
                     </Link>
                 </Button>
                 <SaveLocation editLocation={location}/>
-                <Button onClick={() => deleteSavedLocation(location.id)}>Delete</Button>
+                <Button onClick={() => handleDeleteClick(location)}>Delete</Button>
             </CardFooter>
         </Card>
     );

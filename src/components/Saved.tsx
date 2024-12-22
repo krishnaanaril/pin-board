@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
-import { Link, useLocation, useSearchParams } from "react-router";
+import { useLocation, useSearchParams } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import LocationCard from "./LocationCard";
 import { useEffect, useState } from "react";

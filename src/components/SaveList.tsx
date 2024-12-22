@@ -11,7 +11,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "@/components/ui/toaster";
 
 function SaveList({ editList }: { editList?: ListDetails }) {
 
@@ -127,12 +126,12 @@ function SaveList({ editList }: { editList?: ListDetails }) {
                             name="description"
                             render={({ field }) => (
                                 <FormItem className="my-4">
-                                    <FormLabel>Note</FormLabel>
+                                    <FormLabel>Description</FormLabel>
                                     <FormControl>
                                         <Textarea placeholder="List Description" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        Add your custom note.
+                                        Add your custom description.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>

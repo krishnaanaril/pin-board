@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MapPinPlus } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import { ListDetails, LocationDetails } from "@/store/model";
+import { LocationDetails } from "@/store/model";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
-import { Toaster } from "@/components/ui/toaster";
 
 function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 

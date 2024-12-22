@@ -4,10 +4,21 @@ import usePinBoardStore from "@/store/pinboard-store";
 import SaveList from "./SaveList";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
+import { useToast } from "@/hooks/use-toast";
 
 function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
     const { deleteListItem } = usePinBoardStore();
+    const { toast } = useToast();
+
+    function handleDeleteClick(list: ListDetailsWithPlaces) {
+        deleteListItem(list.id);
+        toast({
+            variant: "destructive",
+            description: `List '${list.name}' deleted.`,
+        });
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -24,7 +35,7 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                     </Link>
                 </Button>
                 <SaveList editList={list} />
-                <Button onClick={() => deleteListItem(list.id)}>Delete</Button>
+                <Button onClick={() => handleDeleteClick(list)}>Delete</Button>
             </CardFooter>
         </Card>
     );
