@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import { Toaster } from "@/components/ui/toaster";
 
 function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
@@ -34,7 +35,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                     });
                 }
             }),
-        list: z.number(),
+        list: z.string(),
         note: z.string(),
     })
         .superRefine((_, ctx: any) => {
@@ -56,7 +57,8 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
         resolver: zodResolver(LocationFormSchema),
         defaultValues: {
             name: editLocation?.name ?? "",
-            note: editLocation?.note ?? ""
+            note: editLocation?.note ?? "",
+            list: (editLocation?.listId ?? 1).toString()
         },
         mode: 'onSubmit',
         reValidateMode: 'onSubmit'
@@ -66,18 +68,19 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
         form.reset({
             name: editLocation?.name ?? "",
             note: editLocation?.note ?? "",
-            list: editLocation?.listId ?? 1
+            list: (editLocation?.listId ?? 1).toString()
         });
     }, [editLocation]);
 
     const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
+        console.log(data);
         const newName: string = data.name.trim();
         if (action === 'Edit') {
             const newLocation: LocationDetails = {
                 id: editLocation!.id,
                 name: newName,
                 note: data.note,
-                listId: editLocation!.listId ?? 1,
+                listId: parseInt(data.list) ?? 1,
                 createdAt: editLocation!.createdAt,
                 updatedAt: Date.now(),
                 position: editLocation!.position
@@ -92,7 +95,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 id: nextId,
                 name: newName,
                 note: data.note,
-                listId: data.list,
+                listId: parseInt(data.list),
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 position: activePosition
@@ -111,7 +114,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
     const [open, setOpen] = useState(false);
     const { savedLocations, activePosition, savedLists, addSavedLocation, updateSavedLocation } = usePinBoardStore();
-    const { toast } = useToast()
+    const { toast } = useToast();
 
     return (
 
@@ -146,8 +149,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
-                        {/* {savedLists.map((list: ListDetails) => <div>{list.name}</div>)} */}
+                        />                        
                         <FormField
                             control={form.control}
                             name="list"
@@ -156,7 +158,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         {/* <Input placeholder="Location Name" {...field} className="col-span-3" /> */}
-                                        <Select value={field.value?.toString()}>
+                                        <Select defaultValue={field.value?.toString()} onValueChange={(value)=>field.onChange(value)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select a list" />
                                             </SelectTrigger>

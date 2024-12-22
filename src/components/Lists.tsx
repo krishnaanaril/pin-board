@@ -3,6 +3,7 @@ import usePinBoardStore from "@/store/pinboard-store";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
+import SaveList from "./SaveList";
 
 function Lists() {
 
@@ -26,6 +27,7 @@ function Lists() {
             Back
           </Link>
         </Button>
+        <SaveList/>
       </div>
     </>
   );
