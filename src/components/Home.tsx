@@ -5,13 +5,14 @@ import { Link, useLocation, useSearchParams } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import SaveLocation from "./SaveLocation";
 import { LatLng, LocationDetails } from "@/store/model";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Home() {
 
     const [searchParams] = useSearchParams();
     const { savedLocations, activePosition, updateActivePosition } = usePinBoardStore();
     const location = useLocation();
+    const [currentLocation, setCurrentLocation] = useState<LocationDetails | undefined>(undefined);
 
     useEffect(() => {
         const idQuery = searchParams.get('id');
@@ -21,10 +22,11 @@ function Home() {
         };
 
         const id: string | undefined = idQuery ? idQuery : undefined;
-        const currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
+        const _currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
+        setCurrentLocation(_currentLocation);
 
-        if(currentLocation) {
-            const currentPosition = currentLocation.position ?? defaultPosition;
+        if(_currentLocation) {
+            const currentPosition = _currentLocation.position ?? defaultPosition;
             console.log(currentPosition);
             updateActivePosition(currentPosition);
         }
@@ -61,7 +63,7 @@ function Home() {
                 </Button>
                 <SaveLocation/>
                 <Button disabled={!activePosition} asChild>
-                    <Link to={getGeoIntent(activePosition, 'Pin Board')} target="_blank">
+                    <Link to={getGeoIntent(activePosition, currentLocation?.name ?? 'Pin Board')} target="_blank">
                         <Share />
                         Share
                     </Link>
