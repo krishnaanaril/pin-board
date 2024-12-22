@@ -25,7 +25,7 @@ function Lists() {
           {lists}
         </ul>
       </div>
-      <div className="fixed w-full bottom-6 flex place-content-evenly">
+      <div className="fixed w-full bottom-0 py-4 flex place-content-evenly bg-opacity-50 backdrop-blur-lg">
         <Button onClick={handleBackClick} asChild>
           <div>
             <ArrowLeft />
