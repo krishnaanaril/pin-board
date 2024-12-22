@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export interface LatLng {
     lat: number,
     lng: number
@@ -9,26 +7,33 @@ export interface LocationDetails {
     id: number,
     name: string,
     note: string,
+    listId: number,
     position: LatLng | null,
     createdAt: number,
     updatedAt: number
 }
 
+export interface ListDetails {
+    id: number,
+    name: string,
+    description: string,
+    createdAt: number,
+    updatedAt: number
+}
+
+export interface ListDetailsWithPlaces extends ListDetails {
+    places: LocationDetails[]
+}
+
 export interface PinBoardState {
     savedLocations: LocationDetails[];
     activePosition: LatLng | null;
-    updateActivePosition: (newPosition: LatLng) => void;
+    savedLists: ListDetails[];
+    updateActivePosition: (newPosition: LatLng | null) => void;
     addSavedLocation: (newLocation: LocationDetails) => void;
     updateSavedLocation: (id: number, newLocation: LocationDetails) => void;
     deleteSavedLocation: (id: number) => void;
+    addListItem: (newListItem: ListDetails) => void;
+    updateListItem: (id: number, newListItem: ListDetails) => void;
+    deleteListItem: (id: number) => void;
 }
-
-export const LocationFormSchema = z.object({
-    name: z.string()
-        .nonempty("Location name is required")
-        .min(3, {
-            message: "Location name must be at least 3 characters.",
-        })
-        .max(50, "Location name should be shorter than 50 chars."),
-    note: z.string()
-});

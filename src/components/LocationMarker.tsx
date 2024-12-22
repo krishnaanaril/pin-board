@@ -28,11 +28,6 @@ function LocationMarker() {
         }
     }, [map, activePosition]);
 
-    // useEffect(() => {
-    //     console.log('Location Marker');
-    //     console.log(activePosition);
-    // }, [activePosition]);
-
     return activePosition === null ? null : (
         <Marker position={activePosition}>
             <Popup>You are here</Popup>
