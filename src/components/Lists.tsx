@@ -4,24 +4,30 @@ import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import SaveList from "./SaveList";
+import ListCard from "./ListCard";
+import PageHeader from "./PageHeader";
 
 function Lists() {
 
   const { savedLists, savedLocations } = usePinBoardStore();
 
   const listsWithPlaces: ListDetailsWithPlaces[] = savedLists.map(list => ({ ...list, places: savedLocations.filter(location => location.listId === list.id) }));
-  const lists = listsWithPlaces.map(list => <li key={list.id}>{list.name} <span>{list.places?.length} Places</span> </li>);
+  const lists = listsWithPlaces.map(list => <ListCard key={list.id} list={list}/>);
+
+  const handleBackClick = () => {
+    window.history.back();
+  };
 
   return (
     <>
       <div>
-        <h2>Categories</h2>
+        <PageHeader headerText="Lists"/>
         <ul>
           {lists}
         </ul>
       </div>
       <div className="fixed w-full bottom-6 flex place-content-evenly">
-        <Button asChild>
+        <Button onClick={handleBackClick} asChild>
           <Link to="/">
             <ArrowLeft />
             Back

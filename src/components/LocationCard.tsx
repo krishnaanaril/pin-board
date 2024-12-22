@@ -7,11 +7,7 @@ import SaveLocation from "./SaveLocation";
 
 function LocationCard({ location }: { location: LocationDetails }) {
 
-    const { deleteSavedLocation } = usePinBoardStore();
-
-    function onDelete(id: number) {
-        deleteSavedLocation(id);
-    }
+    const { deleteSavedLocation } = usePinBoardStore();    
 
     return (
         <Card>
@@ -26,7 +22,7 @@ function LocationCard({ location }: { location: LocationDetails }) {
                     </Link>
                 </Button>
                 <SaveLocation editLocation={location}/>
-                <Button onClick={() => onDelete(location.id)}>Delete</Button>
+                <Button onClick={() => deleteSavedLocation(location.id)}>Delete</Button>
             </CardFooter>
         </Card>
     );

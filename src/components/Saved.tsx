@@ -4,6 +4,7 @@ import { Link, useLocation, useSearchParams } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import LocationCard from "./LocationCard";
 import { useEffect, useState } from "react";
+import PageHeader from "./PageHeader";
 
 function Saved() {
 
@@ -26,6 +27,7 @@ function Saved() {
 
     return (
         <>
+            <PageHeader headerText="Saved Places"/>
             {locations}
             <div className="fixed w-full bottom-6 flex place-content-evenly">
             <Button asChild>
