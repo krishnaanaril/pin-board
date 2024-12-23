@@ -8,7 +8,7 @@ function Map() {
     const {activePosition} = usePinBoardStore();
 
     return (
-        <div className="fixed h-full w-full">
+        <div className="fixed h-full w-full md:max-w-screen-md md:mx-auto">
             <MapContainer
             center={{ lat: activePosition?.lat ?? 51.505, lng: activePosition?.lng ?? -0.09 }}
             zoom={13}

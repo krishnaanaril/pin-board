@@ -1,4 +1,3 @@
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MapPinPlus } from "lucide-react";
@@ -12,6 +11,17 @@ import { useEffect, useState } from "react";
 import usePinBoardStore from "@/store/pinboard-store";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import { getUniqueId } from "@/lib/helpers";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
 
 function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
@@ -79,7 +89,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 id: editLocation!.id,
                 name: newName,
                 note: data.note,
-                listId: parseInt(data.list) ?? 1,
+                listId: data.list ?? '1',
                 createdAt: editLocation!.createdAt,
                 updatedAt: Date.now(),
                 position: editLocation!.position
@@ -89,17 +99,17 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 description: "Location updated successfully",
             });
         } else {
-            const nextId: number = savedLocations.length > 0 ? Math.max(...savedLocations.map(location => location.id)) + 1 : 1;
+            const nextId: string = getUniqueId();
             const newLocation: LocationDetails = {
                 id: nextId,
                 name: newName,
                 note: data.note,
-                listId: parseInt(data.list),
+                listId: data.list,
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 position: activePosition
             };
-            addSavedLocation(newLocation);
+            addSavedLocation(newLocation);            
             toast({
                 description: "Location added successfully",
             });
@@ -117,27 +127,27 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
     return (
 
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-                <Button>
+        <Drawer open={open} onOpenChange={setOpen}>
+            <DrawerTrigger asChild>
+                <Button id={`${action.toLowerCase()}-location-button`}>
                     <MapPinPlus />
                     {action}
                 </Button>
-            </SheetTrigger>
-            <SheetContent side="bottom">
-                <SheetHeader>
-                    <SheetTitle>{action} Location</SheetTitle>
-                    <SheetDescription>
+            </DrawerTrigger >
+            <DrawerContent>
+                <DrawerHeader >
+                    <DrawerTitle>{action} Location</DrawerTitle>
+                    <DrawerDescription>
                         {action} the selected location by entering a name and note.
-                    </SheetDescription>
-                </SheetHeader>
+                    </DrawerDescription>
+                </DrawerHeader >
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit, onInvalid)}>
-                        <FormField
+                        <FormField 
                             control={form.control}
                             name="name"
                             render={({ field }) => (
-                                <FormItem className="my-4">
+                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Location Name" {...field} className="col-span-3" />
@@ -148,16 +158,16 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />                        
+                        />
                         <FormField
                             control={form.control}
                             name="list"
                             render={({ field }) => (
-                                <FormItem className="my-4">
+                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         {/* <Input placeholder="Location Name" {...field} className="col-span-3" /> */}
-                                        <Select defaultValue={field.value?.toString()} onValueChange={(value)=>field.onChange(value)}>
+                                        <Select defaultValue={field.value?.toString()} onValueChange={(value) => field.onChange(value)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select a list" />
                                             </SelectTrigger>
@@ -184,7 +194,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                             control={form.control}
                             name="note"
                             render={({ field }) => (
-                                <FormItem className="my-4">
+                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Note</FormLabel>
                                     <FormControl>
                                         <Textarea placeholder="Location Note" {...field} />
@@ -196,13 +206,19 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                                 </FormItem>
                             )}
                         />
-                        <SheetFooter>
-                            <Button type="submit">Save</Button>
-                        </SheetFooter>
+                        <div className="mt-auto flex flex-col gap-2 px-4">
+                            <Button id="save-button" type="submit">Save</Button>
+                        </div>
                     </form>
                 </Form>
-            </SheetContent>
-        </Sheet>
+                <DrawerFooter className="pt-2">
+                    <DrawerClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                </DrawerFooter>
+
+            </DrawerContent>
+        </Drawer>
 
     );
 }
