@@ -7,6 +7,7 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
 	registerType: "prompt",
 	includeAssets: ["favicon.ico", "apple-touch-icon-180x180.png", "maskable-icon-512x512.png"],
 	manifest: {
+		id: "/",
 		name: "Pin Board",
 		short_name: "PinBoard",
 		description: "An app that helps you to save locations and open it in your favorite map app.",
@@ -36,7 +37,7 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
 				src: "/maskable-icon-512x512.png",
 				sizes: "512x512",
 				type: "image/png",
-				purpose: "any maskable",
+				purpose: "any",
 			},
 		],
 		theme_color: "#17202a",
