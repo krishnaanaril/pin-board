@@ -1,8 +1,10 @@
+import PageHeader from "./PageHeader";
+
 function Settings() {
     return (
-        <>
-            <h1>Settings</h1>
-        </>
+        <div className="block h-full w-screen overflow-y-scroll">
+            <PageHeader headerText="Settings" />
+        </div>
     )
 }
 

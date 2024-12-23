@@ -1,11 +1,11 @@
-import { ArrowLeft } from "lucide-react";
-import { Button } from "./ui/button";
+// import { ArrowLeft } from "lucide-react";
+// import { Button } from "./ui/button";
 import { useLocation, useSearchParams } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import LocationCard from "./LocationCard";
 import { useEffect, useState } from "react";
 import PageHeader from "./PageHeader";
-import PageFooter from "./PageFooter";
+// import PageFooter from "./PageFooter";
 
 function Saved() {
 
@@ -24,14 +24,14 @@ function Saved() {
         setLocations(filteredLocations.map(location => <LocationCard key={location.id} location={location} />));
     }, [location, searchParams, savedLocations]);
 
-    function handleBackClick() {
-        window.history.back();
-    }
+    // function handleBackClick() {
+    //     window.history.back();
+    // }
 
     return (
-        <div className="h-screen w-screen">
+        <div className="block h-full w-screen overflow-y-scroll">
             <PageHeader headerText="Saved Places" />
-            <div className="min-h-screen">
+            <div>
                 {locations}
                 {locations.length === 0 && (
                     <div className="flex flex-col justify-center items-center p-4">
@@ -40,7 +40,7 @@ function Saved() {
                     </div>
                 )}
             </div>
-            <PageFooter/>
+            {/* <PageFooter/>
             <div className="fixed w-full bottom-0 py-4 flex place-content-evenly bg-opacity-50 backdrop-blur-lg">
                 <Button id="back-button" onClick={handleBackClick} asChild>
                     <div>
@@ -48,7 +48,7 @@ function Saved() {
                         Back
                     </div>
                 </Button>
-            </div>
+            </div> */}
         </div>
     )
 }
