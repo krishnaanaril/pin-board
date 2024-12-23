@@ -1,4 +1,4 @@
-import { Bookmark, Share, LocateFixed, List } from "lucide-react";
+import { Bookmark, Share, LocateFixed, List, ArrowRight } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
 import { Link, useLocation, useSearchParams } from "react-router";
@@ -6,6 +6,7 @@ import usePinBoardStore from "@/store/pinboard-store";
 import SaveLocation from "./SaveLocation";
 import { LatLng, LocationDetails } from "@/store/model";
 import { useEffect, useState } from "react";
+import { Input } from "./ui/input";
 
 function Home() {
 
@@ -25,7 +26,7 @@ function Home() {
         const _currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
         setCurrentLocation(_currentLocation);
 
-        if(_currentLocation) {
+        if (_currentLocation) {
             const currentPosition = _currentLocation.position ?? defaultPosition;
             console.log(currentPosition);
             updateActivePosition(currentPosition);
@@ -45,10 +46,22 @@ function Home() {
     return (
         <div className="h-screen w-screen">
             <Map />
-            <Button id="current-location-button" className="fixed bottom-20 right-6" onClick={goToCurrentLocation}>
-                <LocateFixed size={64}/>                
-            </Button>
-            <div className="fixed w-full bottom-0 py-4 flex place-content-evenly bg-opacity-50 backdrop-blur-lg">
+
+            <div className="fixed bottom-32 right-2 flex flex-col">
+                <div className="my-2 flex flex-row justify-end">
+                    <Button id="current-location-button" onClick={goToCurrentLocation}>
+                        <LocateFixed size={24} />
+                    </Button>
+                </div>
+                <SaveLocation />
+            </div>
+            <div className="w-full fixed bottom-20 flex flex-row md:justify-end">
+                <Input className="mx-2 md:w-1/3" placeholder="Search" />
+                <Button id="search-button" className="mx-2" onClick={goToCurrentLocation}>
+                    <ArrowRight />
+                </Button>
+            </div>
+            {/* <div className="fixed w-full bottom-0 py-4 flex place-content-evenly bg-opacity-50 backdrop-blur-lg">
                 <Button id="saved-locations-button" asChild>
                     <Link id="saved-link" to="/saved">
                         <Bookmark />
@@ -68,7 +81,7 @@ function Home() {
                         Share
                     </Link>
                 </Button>
-            </div>
+            </div> */}
         </div>
     );
 }
