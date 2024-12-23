@@ -109,7 +109,7 @@ function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
                 updatedAt: Date.now(),
                 position: activePosition
             };
-            addSavedLocation(newLocation);
+            addSavedLocation(newLocation);            
             toast({
                 description: "Location added successfully",
             });
