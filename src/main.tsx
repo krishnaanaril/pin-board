@@ -10,6 +10,7 @@ const Saved = lazy(() => import('./components/Saved.tsx'));
 const Lists = lazy(() => import('./components/Lists.tsx'));
 const Settings = lazy(() => import('./components/Settings.tsx'));
 const About = lazy(() => import('./components/About.tsx'));
+const Search = lazy(() => import('./components/Search.tsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
           <Route  path="lists" element={<Lists />}/>
           <Route  path="settings" element={<Settings />}/>
           <Route  path="about" element={<About />}/>
+          <Route  path="search" element={<Search />}/>
         </Route>
       </Routes>
     </BrowserRouter>
