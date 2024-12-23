@@ -1,7 +1,7 @@
 import { LocationSearchResult } from "@/store/model";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 
 export function SearchCard({ list }: { list: LocationSearchResult }) {

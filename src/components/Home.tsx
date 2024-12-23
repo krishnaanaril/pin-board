@@ -1,23 +1,23 @@
-import { Bookmark, Share, LocateFixed, List, ArrowRight } from "lucide-react";
+import { LocateFixed, ArrowRight } from "lucide-react";
 import Map from "./Map";
 import { Button } from "./ui/button";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import SaveLocation from "./SaveLocation";
 import { LatLng, LocationDetails } from "@/store/model";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Input } from "./ui/input";
 import { z } from "zod";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormControl, FormField, FormItem } from "./ui/form";
 
 function Home() {
 
     const [searchParams] = useSearchParams();
-    const { savedLocations, activePosition, updateActivePosition } = usePinBoardStore();
+    const { savedLocations, updateActivePosition } = usePinBoardStore();
     const location = useLocation();
-    const [currentLocation, setCurrentLocation] = useState<LocationDetails | undefined>(undefined);
+    // const [currentLocation, setCurrentLocation] = useState<LocationDetails | undefined>(undefined);
     const navigate = useNavigate();
 
     const searchFormSchema = z.object({
@@ -50,7 +50,7 @@ function Home() {
 
         const id: string | undefined = idQuery ? idQuery : undefined;
         const _currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
-        setCurrentLocation(_currentLocation);
+        // setCurrentLocation(_currentLocation);
 
         if (_currentLocation) {
             const currentPosition = _currentLocation.position ?? defaultPosition;
@@ -59,11 +59,11 @@ function Home() {
         }
     }, [location]);
 
-    function getGeoIntent(position: any, label: string): string {
-        return position ?
-            `geo:${position.lat},${position.lng}?q=${position.lat},${position.lng}(${label})` :
-            '';
-    }
+    // function getGeoIntent(position: any, label: string): string {
+    //     return position ?
+    //         `geo:${position.lat},${position.lng}?q=${position.lat},${position.lng}(${label})` :
+    //         '';
+    // }
 
     function goToCurrentLocation() {
         updateActivePosition(null);
@@ -73,7 +73,7 @@ function Home() {
         <div className="relative h-screen w-screen md:max-w-screen-md md:mx-auto">
             <Map />
 
-            <div className="absolute bottom-32 right-2 flex flex-col md:bottom-36 md:right-4">
+            <div className="absolute bottom-44 right-2 flex flex-col md:bottom-36 md:right-4">
                 <div className="my-2 flex flex-row justify-end">
                     <Button id="current-location-button" onClick={goToCurrentLocation}>
                         <LocateFixed size={24} />
@@ -82,7 +82,7 @@ function Home() {
                 <SaveLocation />
             </div>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="w-full absolute bottom-20 flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
+                <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="w-full absolute bottom-32 flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
                     <FormField
                         control={form.control}
                         name="q"
