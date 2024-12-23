@@ -29,7 +29,7 @@ function Saved() {
     // }
 
     return (
-        <div className="block h-full w-screen overflow-y-scroll">
+        <div className="h-full">
             <PageHeader headerText="Saved Places"/>
             <div>
                 {locations}

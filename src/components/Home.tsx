@@ -44,10 +44,10 @@ function Home() {
     }
 
     return (
-        <div className="h-screen w-screen">
+        <div className="relative h-screen w-screen md:max-w-screen-md md:mx-auto">
             <Map />
 
-            <div className="fixed bottom-32 right-2 flex flex-col">
+            <div className="absolute bottom-32 right-2 flex flex-col md:bottom-36 md:right-4">
                 <div className="my-2 flex flex-row justify-end">
                     <Button id="current-location-button" onClick={goToCurrentLocation}>
                         <LocateFixed size={24} />
@@ -55,7 +55,7 @@ function Home() {
                 </div>
                 <SaveLocation />
             </div>
-            <div className="w-full fixed bottom-20 flex flex-row md:justify-end">
+            <div className="w-full absolute bottom-20 flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
                 <Input className="mx-2 md:w-1/3" placeholder="Search" />
                 <Button id="search-button" className="mx-2" onClick={goToCurrentLocation}>
                     <ArrowRight />
