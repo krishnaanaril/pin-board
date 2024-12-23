@@ -86,7 +86,7 @@ function SaveList({ editList }: { editList?: ListDetails }) {
                 name: data.name.trim(),
                 description: data.description.trim(),
                 updatedAt: Date.now()
-            });            
+            });
             toast({
                 description: "List updated successfully",
             });

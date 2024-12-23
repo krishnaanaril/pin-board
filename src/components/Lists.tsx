@@ -19,7 +19,7 @@ function Lists() {
   // };
 
   return (
-    <div className="block h-full w-screen overflow-y-scroll">
+    <div className="block h-full w-full">
       <PageHeader headerText="Lists">
         <SaveList />
       </PageHeader>

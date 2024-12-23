@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className='h-dvh flex flex-col md:max-w-screen-md md:mx-auto'>
-      <div className='h-full overflow-scroll'>
+      <div className='h-full overflow-y-auto'>
         <Outlet />
         <Toaster />
       </div>
