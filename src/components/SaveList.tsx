@@ -1,5 +1,4 @@
 import { ListDetails } from "@/store/model";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ListPlus } from "lucide-react";
@@ -12,6 +11,16 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { getUniqueId } from "@/lib/helpers";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
 
 function SaveList({ editList }: { editList?: ListDetails }) {
 
@@ -90,27 +99,27 @@ function SaveList({ editList }: { editList?: ListDetails }) {
     };
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
+        <Drawer open={open} onOpenChange={setOpen}>
+            <DrawerTrigger asChild>
                 <Button id={`${action.toLowerCase()}-list-button`}>
                     <ListPlus />
                     {action}
                 </Button>
-            </SheetTrigger>
-            <SheetContent side="bottom">
-                <SheetHeader>
-                    <SheetTitle>{action} List</SheetTitle>
-                    <SheetDescription>
+            </DrawerTrigger>
+            <DrawerContent>
+                <DrawerHeader>
+                    <DrawerTitle>{action} List</DrawerTitle>
+                    <DrawerDescription>
                         {action} list by entering a name and description.
-                    </SheetDescription>
-                </SheetHeader>
+                    </DrawerDescription>
+                </DrawerHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit, onInvalid)}>
                         <FormField
                             control={form.control}
                             name="name"
                             render={({ field }) => (
-                                <FormItem className="my-4">
+                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="List Name" {...field} className="col-span-3" />
@@ -126,7 +135,7 @@ function SaveList({ editList }: { editList?: ListDetails }) {
                             control={form.control}
                             name="description"
                             render={({ field }) => (
-                                <FormItem className="my-4">
+                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
                                         <Textarea placeholder="List Description" {...field} />
@@ -138,13 +147,18 @@ function SaveList({ editList }: { editList?: ListDetails }) {
                                 </FormItem>
                             )}
                         />
-                        <SheetFooter>
+                        <div className="mt-auto flex flex-col gap-2 px-4">
                             <Button id="save-button" type="submit">Save</Button>
-                        </SheetFooter>
+                        </div>
                     </form>
                 </Form>
-            </SheetContent>
-        </Sheet>
+                <DrawerFooter className="pt-2">
+                    <DrawerClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                </DrawerFooter>
+            </DrawerContent>
+        </Drawer>
     );
 };
 

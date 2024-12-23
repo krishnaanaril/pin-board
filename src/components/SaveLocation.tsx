@@ -21,7 +21,7 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/components/ui/drawer";
 
 function SaveLocation({ editLocation }: { editLocation?: LocationDetails }) {
 
