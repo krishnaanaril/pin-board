@@ -30,6 +30,12 @@ const PinBoardStateCreatorFn = (set: any) => ({
     },
     deleteListItem: (id: string) => {
         set((state: PinBoardState) => ({ savedLists: [...state.savedLists.filter((x: ListDetails) => x.id !== id)] }));
+    },
+    appendSavedLocations: (newLocations: LocationDetails[]) => {
+        set((state: PinBoardState) => ({ savedLocations: [...state.savedLocations, ...newLocations] }));
+    },
+    appendSavedLists: (newLists: ListDetails[]) => {
+        set((state: PinBoardState) => ({ savedLists: [...state.savedLists, ...newLists] }));
     }
 })
 

@@ -36,4 +36,6 @@ export interface PinBoardState {
     addListItem: (newListItem: ListDetails) => void;
     updateListItem: (id: string, newListItem: ListDetails) => void;
     deleteListItem: (id: string) => void;
+    appendSavedLocations: (newLocations: LocationDetails[]) => void;
+    appendSavedLists: (newLists: ListDetails[]) => void;
 }
