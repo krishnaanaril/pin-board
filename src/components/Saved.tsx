@@ -3,6 +3,7 @@ import usePinBoardStore from "@/store/pinboard-store";
 import LocationCard from "./LocationCard";
 import { useEffect, useState } from "react";
 import PageHeader from "./PageHeader";
+import { EmptyMessage } from "./EmptyMessage";
 
 function Saved() {
 
@@ -26,12 +27,7 @@ function Saved() {
             <PageHeader headerText="Saved Places"/>
             <div className="h-3/4 flex flex-col justify-center">
                 {locations}
-                {locations.length === 0 && (
-                    <div className="flex flex-col justify-center items-center p-4">
-                        <img className="size-48" src="/nodata.svg" alt="No data" />
-                        <p className="text-center font-bold my-2">No saved locations found</p>
-                    </div>
-                )}
+                {locations.length === 0 && <EmptyMessage message="No saved locations found"/>}
             </div>
         </div>
     )

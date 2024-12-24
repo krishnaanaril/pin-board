@@ -55,7 +55,7 @@ function Settings() {
     }
 
     return (
-        <div className="block h-full w-screen overflow-y-scroll">
+        <div className="block h-full">
             <PageHeader headerText="Settings" />
             <Card>
                 <CardHeader>

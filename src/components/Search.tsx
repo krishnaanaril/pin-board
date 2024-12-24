@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router";
 import PageHeader from "./PageHeader";
 import { SearchCard } from "./SearchCard";
+import { EmptyMessage } from "./EmptyMessage";
 
 function Search() {
     const [searchParams] = useSearchParams();
@@ -24,10 +25,18 @@ function Search() {
 
     return (
         <>
-            <PageHeader headerText="Search Results"/>
-            {results.length > 0 && (results.map(result => <SearchCard key={result.place_id} list={result}/>))}
-            {searchCompleted && results.length === 0 && <div>No results found</div>}
-            {results.length === 0 && !searchCompleted && <div>Searching...</div>}            
+            <PageHeader headerText="Search Results" />
+
+            {results.length > 0 && (results.map(result => <SearchCard key={result.place_id} list={result} />))}
+            {
+                searchCompleted &&
+                results.length === 0 &&
+                <div className="h-3/4 flex flex-col justify-center">
+                    <EmptyMessage message="No results found" />
+                </div>
+            }
+            {results.length === 0 && !searchCompleted && <div>Searching...</div>}
+
         </>
     );
 }
