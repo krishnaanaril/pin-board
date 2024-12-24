@@ -16,6 +16,8 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
+import { dateInAgoFormat } from "@/lib/helpers";
+import { Eye, Trash2 } from "lucide-react";
 
 function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
@@ -37,7 +39,7 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
         setOpen2(false);
     }
 
-    function deleteContinueClick(list: ListDetailsWithPlaces) {        
+    function deleteContinueClick(list: ListDetailsWithPlaces) {
         deleteListItem(list.id);
         toast({
             variant: "destructive",
@@ -48,22 +50,32 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
     return (
         <>
-            <Card>
+            <Card className="bg-gray-100">
                 <CardHeader>
                     <CardTitle>{list.name}</CardTitle>
-                    <CardDescription>{list.places?.length} Places</CardDescription>
+                    <CardDescription className="flex justify-between">
+                        <div>
+                            {list.places?.length} Places
+                        </div>
+                        <div className="flex">
+                            {dateInAgoFormat(list.updatedAt)}
+                        </div>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {list.description}
+                    {list.description || 'No description'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Button id="view-button">
-                        <Link to={`/saved?listId=${list.id}`}>
+                    <Link to={`/saved?listId=${list.id}`}>
+                        <Button id="view-button">
+
+                            <Eye />
                             View
-                        </Link>
-                    </Button>
+
+                        </Button>
+                    </Link>
                     <SaveList editList={list} />
-                    <Button id="delete-button" onClick={handleDeleteClick}>Delete</Button>
+                    <Button id="delete-button" variant="destructive" onClick={handleDeleteClick}><Trash2 />Delete</Button>
                 </CardFooter>
             </Card>
             <AlertDialog open={open2} onOpenChange={setOpen2}>

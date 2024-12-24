@@ -25,6 +25,10 @@ export interface ListDetailsWithPlaces extends ListDetails {
     places: LocationDetails[]
 }
 
+export interface LocationDetailsWithList extends LocationDetails {
+    list: string | undefined
+}
+
 /*
  {
     "place_id": 226032179,

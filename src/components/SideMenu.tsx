@@ -28,15 +28,15 @@ function SideMenu() {
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Pin Board</SheetTitle>
+                    <SheetTitle className="text-2xl">Pin Board</SheetTitle>
                     <SheetDescription>                        
                             <span>
                                 PinBoard is an application that helps users save locations from a map and share them with other map applications on their device.
                             </span>
-                            <strong>Version: 1.0.0</strong>                        
+                            <strong className="block my-4">Version: 1.0.0</strong>                        
                     </SheetDescription>
                 </SheetHeader>
-                <ul className="h-full">
+                <ul className="my-4">
                     <li onClick={() => linkClick('/saved')} className="flex flex-row my-6 font-bold">
                         <Bookmark />
                         <span className="px-4">Saved</span>
@@ -59,6 +59,7 @@ function SideMenu() {
                     </li>
                 </ul>
             </SheetContent>
+            
         </Sheet>
     );
 }
