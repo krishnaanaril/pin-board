@@ -7,20 +7,21 @@ import { EmptyMessage } from "./EmptyMessage";
 
 function Saved() {
 
-    const { savedLocations } = usePinBoardStore();
+    const { savedLocations, savedLists } = usePinBoardStore();
     const [searchParams] = useSearchParams();
-    const location = useLocation();
+    const _location = useLocation();
 
     const [locations, setLocations] = useState<React.JSX.Element[]>([]);
 
     useEffect(() => {
         const listId = searchParams.get("listId") ? searchParams.get("listId") : null;
+        const locationDetailsWithList = savedLocations.map(location => ({...location, list: savedLists.find(list => list.id === location.listId)?.name }));
         const filteredLocations = listId
-            ? savedLocations.filter(location => location.listId === listId)
-            : savedLocations;
+            ? locationDetailsWithList.filter(location => location.listId === listId)
+            : locationDetailsWithList;
 
         setLocations(filteredLocations.map(location => <LocationCard key={location.id} location={location} />));
-    }, [location, searchParams, savedLocations]);
+    }, [_location, searchParams, savedLocations]);
 
     return (
         <div className="h-full">

@@ -16,6 +16,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
+import { dateInAgoFormat } from "@/lib/helpers";
 
 function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
@@ -48,10 +49,17 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
     return (
         <>
-            <Card className="m-4">
+            <Card className="bg-gray-100">
                 <CardHeader>
                     <CardTitle>{list.name}</CardTitle>
-                    <CardDescription>{list.places?.length} Places</CardDescription>
+                    <CardDescription className="flex justify-between">
+                        <div>
+                            {list.places?.length} Places
+                        </div>
+                        <div className="flex">
+                            {dateInAgoFormat(list.updatedAt)}
+                        </div>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     {list.description || 'No description'}
@@ -65,7 +73,7 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                     <SaveList editList={list} />
                     <Button id="delete-button" onClick={handleDeleteClick}>Delete</Button>
                 </CardFooter>
-            </Card>            
+            </Card>
             <AlertDialog open={open2} onOpenChange={setOpen2}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
