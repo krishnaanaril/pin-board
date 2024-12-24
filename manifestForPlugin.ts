@@ -498,49 +498,49 @@ export const manifestForPlugin: Partial<VitePWAOptions> = {
         ],
         screenshots: [
             {
-                src: "/ss_1.png",
+                src: "/screenshots/ss_1.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Home page with map and search box"
             },
             {
-                src: "/ss_2.png",
+                src: "/screenshots/ss_2.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Saved Places"
             },
             {
-                src: "/ss_3.png",
+                src: "/screenshots/ss_3.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Side Menu"
             },
             {
-                src: "/ss_4.png",
+                src: "/screenshots/ss_4.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Lists page"
             },
             {
-                src: "/ss_5.png",
+                src: "/screenshots/ss_5.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Settings page"
             },
             {
-                src: "/ss_6.png",
+                src: "/screenshots/ss_6.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "About page"
             },
             {
-                src: "/ss_7.png",
+                src: "/screenshots/ss_7.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Search results page with results"
             },
             {
-                src: "/ss_8.png",
+                src: "/screenshots/ss_8.png",
                 sizes: "1125x2436",
                 type: "image/png",
                 platform: "Search results page with no results"
