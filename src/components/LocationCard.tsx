@@ -1,4 +1,4 @@
-import { LocationDetails, LocationDetailsWithList } from "@/store/model";
+import { LocationDetailsWithList } from "@/store/model";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Link } from "react-router";
