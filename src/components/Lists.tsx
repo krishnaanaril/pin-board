@@ -3,6 +3,7 @@ import usePinBoardStore from "@/store/pinboard-store";
 import SaveList from "./SaveList";
 import ListCard from "./ListCard";
 import PageHeader from "./PageHeader";
+import { EmptyMessage } from "./EmptyMessage";
 
 function Lists() {
 
@@ -16,15 +17,11 @@ function Lists() {
       <PageHeader headerText="Lists">
         <SaveList />
       </PageHeader>
-      <div className="h-3/4 flex flex-col justify-center">
-        {lists}
-        {lists.length === 0 && (
-          <div className="flex flex-col justify-center items-center p-4">
-            <img className="size-48" src="/nodata.svg" alt="No data" />
-            <p className="text-center font-bold my-2">No saved lists found</p>
-          </div>
-        )}
-      </div>
+      {lists}
+      {
+        lists.length === 0 &&
+        <EmptyMessage message="No saved lists found" />
+      }
     </div>
   );
 }

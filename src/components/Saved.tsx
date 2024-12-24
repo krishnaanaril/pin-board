@@ -24,11 +24,9 @@ function Saved() {
 
     return (
         <div className="h-full">
-            <PageHeader headerText="Saved Places"/>
-            <div className="h-3/4 flex flex-col justify-center">
-                {locations}
-                {locations.length === 0 && <EmptyMessage message="No saved locations found"/>}
-            </div>
+            <PageHeader headerText="Saved Places" />
+            {locations}
+            {locations.length === 0 && <EmptyMessage message="No saved locations found" />}
         </div>
     )
 }

@@ -37,7 +37,7 @@ function LocationCard({ location }: { location: LocationDetails }) {
 
     return (
         <>
-        <Card>
+        <Card className="bg-gray-100">
             <CardHeader>
                 <CardTitle>{location.name}</CardTitle>
                 <CardDescription>{location.note}</CardDescription>

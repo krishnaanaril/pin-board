@@ -1,6 +1,6 @@
 function PageHeader({ headerText, children }: { headerText: string, children?: React.ReactNode }) {
     return (
-        <header className="h-32 flex flex-col-reverse pl-4 pb-4 bg-gray-100">
+        <header className="h-32 flex flex-col-reverse pl-4 pb-4 bg-yellow-300">
             <div className="flex flex-row justify-between">
                 <h1 className="text-4xl font-bold">{headerText}</h1>
                 <div className="pr-4">

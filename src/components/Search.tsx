@@ -31,9 +31,8 @@ function Search() {
             {
                 searchCompleted &&
                 results.length === 0 &&
-                <div className="h-3/4 flex flex-col justify-center">
-                    <EmptyMessage message="No results found" />
-                </div>
+                <EmptyMessage message="No results found" />
+
             }
             {results.length === 0 && !searchCompleted && <div>Searching...</div>}
 

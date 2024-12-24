@@ -37,7 +37,7 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
         setOpen2(false);
     }
 
-    function deleteContinueClick(list: ListDetailsWithPlaces) {        
+    function deleteContinueClick(list: ListDetailsWithPlaces) {
         deleteListItem(list.id);
         toast({
             variant: "destructive",
@@ -48,13 +48,13 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
     return (
         <>
-            <Card>
+            <Card className="m-4">
                 <CardHeader>
                     <CardTitle>{list.name}</CardTitle>
                     <CardDescription>{list.places?.length} Places</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {list.description}
+                    {list.description || 'No description'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button id="view-button">
@@ -65,7 +65,7 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                     <SaveList editList={list} />
                     <Button id="delete-button" onClick={handleDeleteClick}>Delete</Button>
                 </CardFooter>
-            </Card>
+            </Card>            
             <AlertDialog open={open2} onOpenChange={setOpen2}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
