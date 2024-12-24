@@ -17,12 +17,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { dateInAgoFormat } from "@/lib/helpers";
+import { Eye, Share, Trash2 } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
 
 function LocationCard({ location }: { location: LocationDetailsWithList }) {
 
     const { deleteSavedLocation } = usePinBoardStore();
     const { toast } = useToast();
     const [open, setOpen] = useState(false);
+    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     function handleDeleteClick() {
         setOpen(true);
@@ -36,17 +39,23 @@ function LocationCard({ location }: { location: LocationDetailsWithList }) {
         });
     }
 
+    function getGeoIntent(position: any, label: string): string {
+        return position ?
+            `geo:${position.lat},${position.lng}?q=${position.lat},${position.lng}(${label})` :
+            '';
+    }
+
     return (
         <>
             <Card className="bg-gray-100">
                 <CardHeader>
                     <CardTitle>{location.name}</CardTitle>
-                    <CardDescription className="flex justify-between"> 
+                    <CardDescription className="flex justify-between">
                         <div>
                             {location.list ?? 'No list'}
                         </div>
-                        <div className="flex">                        
-                        {dateInAgoFormat(location.updatedAt)}
+                        <div className="flex">
+                            {dateInAgoFormat(location.updatedAt)}
                         </div>
                     </CardDescription>
                 </CardHeader>
@@ -54,13 +63,23 @@ function LocationCard({ location }: { location: LocationDetailsWithList }) {
                     {location.note || 'No note'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Button id="view-button">
-                        <Link to={`/?id=${location.id}`}>
+                    <Link to={`/?id=${location.id}`}>
+                        <Button id="view-button">
+                            <Eye />
                             View
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
                     <SaveLocation editLocation={location} />
-                    <Button id="delete-button" onClick={handleDeleteClick}>Delete</Button>
+                    {
+                        !isDesktop &&
+                        <Link id="share-link" to={getGeoIntent(location.position, location?.name ?? 'Pin Board')} target="_blank">
+                            <Button id="share-location-button">
+                                <Share />
+                                Share
+                            </Button>
+                        </Link>
+                    }
+                    <Button id="delete-button" variant="destructive" onClick={handleDeleteClick}><Trash2 />Delete</Button>
                 </CardFooter>
             </Card>
             <AlertDialog open={open} onOpenChange={setOpen}>

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { dateInAgoFormat } from "@/lib/helpers";
+import { Eye, Trash2 } from "lucide-react";
 
 function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
@@ -65,13 +66,16 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                     {list.description || 'No description'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Button id="view-button">
-                        <Link to={`/saved?listId=${list.id}`}>
+                    <Link to={`/saved?listId=${list.id}`}>
+                        <Button id="view-button">
+
+                            <Eye />
                             View
-                        </Link>
-                    </Button>
+
+                        </Button>
+                    </Link>
                     <SaveList editList={list} />
-                    <Button id="delete-button" onClick={handleDeleteClick}>Delete</Button>
+                    <Button id="delete-button" variant="destructive" onClick={handleDeleteClick}><Trash2 />Delete</Button>
                 </CardFooter>
             </Card>
             <AlertDialog open={open2} onOpenChange={setOpen2}>

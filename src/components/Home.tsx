@@ -33,8 +33,7 @@ function Home() {
         reValidateMode: 'onSubmit'
     });
 
-    const onSubmit: SubmitHandler<z.infer<typeof searchFormSchema>> = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<z.infer<typeof searchFormSchema>> = (data) => {        
         navigate(`/search?q=${data.q}`);
     };
     const onInvalid: SubmitErrorHandler<z.infer<typeof searchFormSchema>> = (data) => {
@@ -49,12 +48,10 @@ function Home() {
         };
 
         const id: string | undefined = idQuery ? idQuery : undefined;
-        const _currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
-        // setCurrentLocation(_currentLocation);
+        const _currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;        
 
         if (_currentLocation) {
-            const currentPosition = _currentLocation.position ?? defaultPosition;
-            console.log(currentPosition);
+            const currentPosition = _currentLocation.position ?? defaultPosition;            
             updateActivePosition(currentPosition);
         }
     }, [location]);
