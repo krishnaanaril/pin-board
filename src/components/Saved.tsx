@@ -15,7 +15,7 @@ function Saved() {
 
     useEffect(() => {
         const listId = searchParams.get("listId") ? searchParams.get("listId") : null;
-        const locationDetailsWithList = savedLocations.map(location => ({...location, list: savedLists.find(list => list.id === location.listId)?.name }));
+        const locationDetailsWithList = savedLocations.map(location => ({ ...location, list: savedLists.find(list => list.id === location.listId)?.name }));
         const filteredLocations = listId
             ? locationDetailsWithList.filter(location => location.listId === listId)
             : locationDetailsWithList;
@@ -23,12 +23,19 @@ function Saved() {
         setLocations(filteredLocations.map(location => <LocationCard key={location.id} location={location} />));
     }, [_location, searchParams, savedLocations]);
 
+    useEffect(() => {
+        document.title = "Saved Places | Pin Board: Save your locations"
+    }, []);
+
     return (
-        <div className="h-full">
-            <PageHeader headerText="Saved Places" />
-            {locations}
-            {locations.length === 0 && <EmptyMessage message="No saved locations found" />}
-        </div>
+        <>
+            <div className="h-full">
+                <PageHeader headerText="Saved Places" />
+                {locations}
+                {locations.length === 0 && <EmptyMessage message="No saved locations found" />}
+            </div>
+        </>
+
     )
 }
 

@@ -4,6 +4,7 @@ import SaveList from "./SaveList";
 import ListCard from "./ListCard";
 import PageHeader from "./PageHeader";
 import { EmptyMessage } from "./EmptyMessage";
+import { useEffect } from "react";
 
 function Lists() {
 
@@ -12,17 +13,23 @@ function Lists() {
   const listsWithPlaces: ListDetailsWithPlaces[] = savedLists.map(list => ({ ...list, places: savedLocations.filter(location => location.listId === list.id) }));
   const lists = listsWithPlaces.map(list => <ListCard key={list.id} list={list} />);
 
+  useEffect(() => {
+    document.title = "Saved Lists | Pin Board: Save your locations"
+  }, []);
+
   return (
-    <div className="block h-full w-full">
-      <PageHeader headerText="Lists">
-        <SaveList />
-      </PageHeader>
-      {lists}
-      {
-        lists.length === 0 &&
-        <EmptyMessage message="No saved lists found" />
-      }
-    </div>
+    <>
+      <div className="block h-full w-full">
+        <PageHeader headerText="Lists">
+          <SaveList />
+        </PageHeader>
+        {lists}
+        {
+          lists.length === 0 &&
+          <EmptyMessage message="No saved lists found" />
+        }
+      </div>
+    </>
   );
 }
 

@@ -23,6 +23,10 @@ function Search() {
         }
     }, [location, searchParams]);
 
+    useEffect(() => {
+        document.title = "Search Results | Pin Board: Save your locations"
+    }, []);
+
     return (
         <>
             <PageHeader headerText="Search Results" />
