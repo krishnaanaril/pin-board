@@ -127,6 +127,10 @@ export const manifestForPlugin: Partial<VitePWAOptions> = {
         launch_handler: {
             client_mode: ["navigate-existing", "auto"]
         },
-        handle_links: "auto"
+        handle_links: "auto",
+        prefer_related_applications: false,
+        edge_side_panel: {
+            "preferred_width": 400
+        }
     },
 };
