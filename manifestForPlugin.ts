@@ -2,7 +2,7 @@ import { VitePWAOptions } from "vite-plugin-pwa";
 
 export const manifestForPlugin: Partial<VitePWAOptions> = {
     registerType: "prompt",
-    includeAssets: ["favicon.ico", "apple-touch-icon-180x180.png", "maskable-icon-512x512.png"],
+    includeAssets: ["favicon.ico", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon-180x180.png", "maskable-icon-512x512.png"],
     manifest: {
         id: "/",
         name: "Pin Board: Save your locations",
