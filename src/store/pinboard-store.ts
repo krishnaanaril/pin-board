@@ -5,7 +5,7 @@ import { LatLng, ListDetails, LocationDetails, PinBoardState } from './model';
 const pinBoardMiddlewares = (f: StateCreator<PinBoardState, [], []>) => devtools(persist(f, { name: 'PinBoardStore' }));
 
 const DEFAULT_LISTS : ListDetails[] = [
-    { id: '1', name: 'Unlabelled', description: 'This is the default list', createdAt: Date.now(), updatedAt: Date.now() }
+    { id: '1', name: 'Unlabeled', description: 'This is the default list', createdAt: Date.now(), updatedAt: Date.now() }
 ];
 
 const PinBoardStateCreatorFn = (set: any) => ({
