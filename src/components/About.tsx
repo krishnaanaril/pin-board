@@ -13,13 +13,13 @@ function About() {
                 <PageHeader headerText="About" />
                 <article>
                     <section className="px-4 py-2">
-                        <p className="mt-4">
+                        <p className="mt-4 text-xl leading-relaxed">
                             This app allows users to save locations and lists independently of major map services like Google, Bing, or Apple Maps. Users can easily share locations with other map applications. The app leverages OpenStreetMaps and ensures user privacy by storing all data locally in the browser, without any server-side storage.
                         </p>
                     </section>
                     <section className="px-4 py-2">
                         <h2 className="text-2xl font-bold">Features</h2>
-                        <ul className="list-disc list-inside mt-4">
+                        <ul className="list-disc list-inside mt-4 text-xl leading-relaxed">
                             <li>Save locations with a name and note</li>
                             <li>Save lists with a name and description</li>
                             <li>View saved locations and lists</li>
@@ -31,7 +31,7 @@ function About() {
                     </section>
                     <section className="px-4 py-2">
                         <h2 className="text-2xl font-bold">Technologies</h2>
-                        <ul className="list-disc list-inside mt-4">
+                        <ul className="list-disc list-inside mt-4 text-xl leading-relaxed">
                             <li>React</li>
                             <li>TypeScript</li>
                             <li>Zustand</li>

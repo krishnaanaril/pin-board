@@ -1,9 +1,9 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import path from "path"
 import { VitePWA } from "vite-plugin-pwa";
-import { manifestForPlugin } from './manifestForPlugin';
-
+import { manifestForPlugin } from './manifestForPlugin.config';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,5 +15,5 @@ export default defineConfig({
   },
   build: {
     commonjsOptions: { transformMixedEsModules: true } // Change
-  }
+  }  
 })

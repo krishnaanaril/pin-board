@@ -1,10 +1,21 @@
-import { Link, Outlet } from 'react-router'
+import { Link, Outlet, useLocation } from 'react-router'
 import './App.css'
 import { Toaster } from './components/ui/toaster'
-import { Bookmark, Search } from 'lucide-react'
+import { Bookmark, LocateFixed, Search } from 'lucide-react'
 import SideMenu from './components/SideMenu'
+import { Button } from './components/ui/button'
+import SaveLocation from './components/SaveLocation'
+import { SearchForm } from './components/SearchForm'
+import usePinBoardStore from './store/pinboard-store'
 
 function App() {
+
+  const { updateActivePosition } = usePinBoardStore();
+  const location = useLocation();
+
+  function goToCurrentLocation() {    
+    updateActivePosition(null);
+  }
 
   return (
     <div className='h-dvh flex flex-col md:max-w-screen-md md:mx-auto'>
@@ -12,6 +23,20 @@ function App() {
         <Outlet />
         <Toaster />
       </div>
+      {location.pathname === '/' && (
+        <>
+        <div className="absolute bottom-32 right-2 flex flex-col md:bottom-36 md:right-4">
+          <div className="my-2 flex flex-row justify-end">
+            <Button id="current-location-button" onClick={goToCurrentLocation}>
+              <LocateFixed size={24} />
+            </Button>
+          </div>
+          <SaveLocation />
+        </div>
+        <SearchForm />
+        </>
+      )}
+      
       <div className='bg-opacity-50 py-2 backdrop-blur-lg flex flex-row justify-between max-w-screen-md md:mx-auto w-full md:w-screen-sm md:rounded-full md:mb-2'>
         <Link className='w-1/3 flex flex-col items-center' id="saved-link" to="/saved">
           <Bookmark />
