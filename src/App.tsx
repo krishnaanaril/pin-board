@@ -13,7 +13,7 @@ function App() {
   const { updateActivePosition } = usePinBoardStore();
   const location = useLocation();
 
-  function goToCurrentLocation() {    
+  function goToCurrentLocation() {
     updateActivePosition(null);
   }
 
@@ -24,19 +24,23 @@ function App() {
         <Toaster />
       </div>
       {location.pathname === '/' && (
-        <>
-        <div className="absolute bottom-32 right-2 flex flex-col md:bottom-36 md:right-4">
-          <div className="my-2 flex flex-row justify-end">
-            <Button id="current-location-button" onClick={goToCurrentLocation}>
-              <LocateFixed size={24} />
-            </Button>
-          </div>
-          <SaveLocation />
+        <div className='w-screen md:max-w-screen-md md:mx-auto'>
+          <div className="relative right-2 flex flex-col md:right-4">
+            <div className="my-2 flex flex-row justify-end">
+              <Button id="current-location-button" onClick={goToCurrentLocation}>
+                <LocateFixed size={24} />
+              </Button>
+            </div>
+            <div className='my-2 flex flex-row justify-end'>
+              <SaveLocation />
+            </div>
+            <div className='my-2 ml-2 flex flex-row justify-end'>
+              <SearchForm />
+            </div>
+          </div>          
         </div>
-        <SearchForm />
-        </>
       )}
-      
+
       <div className='bg-opacity-50 py-2 backdrop-blur-lg flex flex-row justify-between max-w-screen-md md:mx-auto w-full md:w-screen-sm md:rounded-full md:mb-2'>
         <Link className='w-1/3 flex flex-col items-center' id="saved-link" to="/saved">
           <Bookmark />

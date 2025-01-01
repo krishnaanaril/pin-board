@@ -31,7 +31,7 @@ export function SearchForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="w-full absolute bottom-20 flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
+            <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="w-full flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
                 <FormField
                     control={form.control}
                     name="q"
@@ -49,7 +49,7 @@ export function SearchForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" id="search-button" className="mx-2">
+                <Button type="submit" id="search-button" className="ml-2">
                     <ArrowRight />
                 </Button>
             </form>
