@@ -3,7 +3,6 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/c
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
-import { truncate } from "fs";
 
 export function SearchCard({ list }: { list: LocationSearchResult }) {
 
