@@ -23,7 +23,7 @@ export function SearchForm() {
     });
 
     const onSubmit: SubmitHandler<z.infer<typeof searchFormSchema>> = (data) => {
-        navigate(`/search?q=${data.q}`);
+        navigate(`/search?q=${data.q}`, {viewTransition: true});
     };
     const onInvalid: SubmitErrorHandler<z.infer<typeof searchFormSchema>> = (data) => {
         console.error(data);
@@ -31,7 +31,7 @@ export function SearchForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="w-full absolute bottom-20 flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
+            <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="w-full flex flex-row md:justify-end md:max-w-screen-md md:mx-auto md:bottom-24 md:right-2">
                 <FormField
                     control={form.control}
                     name="q"
@@ -40,7 +40,7 @@ export function SearchForm() {
                             {/* <FormMessage /> */}
                             {/* <FormLabel>Name</FormLabel> */}
                             <FormControl>
-                                <Input placeholder="Search" {...field} />
+                                <Input placeholder="Search" {...field} autoComplete="on" />
                             </FormControl>
                             {/* <FormDescription>
                                         Enter a unique name
@@ -49,7 +49,7 @@ export function SearchForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" id="search-button" className="mx-2">
+                <Button type="submit" id="search-button" className="ml-2">
                     <ArrowRight />
                 </Button>
             </form>

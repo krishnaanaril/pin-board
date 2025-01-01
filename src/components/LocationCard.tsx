@@ -5,20 +5,11 @@ import { Link } from "react-router";
 import usePinBoardStore from "@/store/pinboard-store";
 import SaveLocation from "./SaveLocation";
 import { useToast } from "@/hooks/use-toast";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { dateInAgoFormat } from "@/lib/helpers";
 import { Eye, Share, Trash2 } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
+import { Alert } from "./Alert";
 
 function LocationCard({ location }: { location: LocationDetailsWithList }) {
 
@@ -63,7 +54,7 @@ function LocationCard({ location }: { location: LocationDetailsWithList }) {
                     {location.note || 'No note'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Link to={`/?id=${location.id}`}>
+                    <Link to={`/?id=${location.id}`} viewTransition>
                         <Button id="view-button">
                             <Eye />
                             View
@@ -82,21 +73,14 @@ function LocationCard({ location }: { location: LocationDetailsWithList }) {
                     <Button id="delete-button" variant="destructive" onClick={handleDeleteClick}><Trash2 />Delete</Button>
                 </CardFooter>
             </Card>
-            <AlertDialog open={open} onOpenChange={setOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete your
-                            saved location.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => deleteContinueClick(location)}>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            <Alert 
+                openAlert={open} 
+                setOpenAlert={setOpen} 
+                action={() => deleteContinueClick(location)} 
+                actionText="Continue" 
+                cancelText="Cancel" 
+                title="Are you absolutely sure?" 
+                description="This action cannot be undone. This will permanently delete your saved location." />
         </>
     );
 }

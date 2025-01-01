@@ -16,8 +16,8 @@ function SideMenu() {
     const [open, setOpen] = useState(false);
 
     function linkClick(path: string) {
-        navigate(path);
         setOpen(false);
+        navigate(path, {viewTransition: true});        
     }
 
     return (
@@ -33,7 +33,7 @@ function SideMenu() {
                             <span>
                                 PinBoard is an application that helps users save locations from a map and share them with other map applications on their device.
                             </span>
-                            <strong className="block my-4">Version: 1.0.0</strong>                        
+                            <strong className="block my-4">Version: 1.2.0</strong>                        
                     </SheetDescription>
                 </SheetHeader>
                 <ul className="my-4">

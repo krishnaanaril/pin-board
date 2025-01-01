@@ -70,8 +70,7 @@ export function SaveLocationForm({ editLocation, setOpen }: { editLocation?: Loc
         });
     }, [editLocation]);
 
-    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
-        console.log(data);
+    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {        
         const newName: string = data.name.trim();
         if (action === 'Edit') {
             const newLocation: LocationDetails = {
@@ -98,7 +97,7 @@ export function SaveLocationForm({ editLocation, setOpen }: { editLocation?: Loc
                 updatedAt: Date.now(),
                 position: activePosition
             };
-            addSavedLocation(newLocation);            
+            addSavedLocation(newLocation);
             toast({
                 description: "Location added successfully",
             });
@@ -115,74 +114,73 @@ export function SaveLocationForm({ editLocation, setOpen }: { editLocation?: Loc
 
     return (
         <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit, onInvalid)}>
-                        <FormField 
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Location Name" {...field} className="col-span-3" />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Enter a unique name
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="list"
-                            render={({ field }) => (
-                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        {/* <Input placeholder="Location Name" {...field} className="col-span-3" /> */}
-                                        <Select defaultValue={field.value?.toString()} onValueChange={(value) => field.onChange(value)}>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a list" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectLabel>Lists</SelectLabel>
-                                                    {savedLists.map((list) => (
-                                                        <SelectItem key={list.id} value={list.id.toString()}>
-                                                            {list.name}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
-                                    </FormControl>
-                                    <FormDescription>
-                                        Enter a unique name
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="note"
-                            render={({ field }) => (
-                                <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
-                                    <FormLabel>Note</FormLabel>
-                                    <FormControl>
-                                        <Textarea placeholder="Location Note" {...field} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Add your custom note.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className="mt-auto flex flex-col gap-2 px-4">
-                            <Button id="save-button" type="submit">Save</Button>
-                        </div>
-                    </form>
-                </Form>
+            <form onSubmit={form.handleSubmit(onSubmit, onInvalid)}>
+                <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Location Name" {...field} className="col-span-3" autoComplete="on" />
+                            </FormControl>
+                            <FormDescription>
+                                Enter a unique name
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="list"
+                    render={({ field }) => (
+                        <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                                <Select defaultValue={field.value?.toString()} onValueChange={(value) => field.onChange(value)}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a list" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Lists</SelectLabel>
+                                            {savedLists.map((list) => (
+                                                <SelectItem key={list.id} value={list.id.toString()}>
+                                                    {list.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                            <FormDescription>
+                                Enter a unique name
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="note"
+                    render={({ field }) => (
+                        <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
+                            <FormLabel>Note</FormLabel>
+                            <FormControl>
+                                <Textarea placeholder="Location Note" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                                Add your custom note.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <div className="mt-auto flex flex-col gap-2 px-4">
+                    <Button id="save-button" type="submit">Save</Button>
+                </div>
+            </form>
+        </Form>
     )
 }

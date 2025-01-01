@@ -11,25 +11,23 @@ function Home() {
     const location = useLocation();
 
     useEffect(() => {
-        const idQuery = searchParams.get('id');
+        document.title = "Pin Board: Save your locations";
         const defaultPosition: LatLng = {
             lat: 51.505,
             lng: -0.09
         };
-
+        const idQuery = searchParams.get('id');
         const id: string | undefined = idQuery ? idQuery : undefined;
         const _currentLocation: LocationDetails | undefined = id ? savedLocations.filter(location => location.id == id)?.at(0) : undefined;
-
         if (_currentLocation) {
             const currentPosition = _currentLocation.position ?? defaultPosition;
-            updateActivePosition(currentPosition);
+            updateActivePosition({...currentPosition, text: _currentLocation.position ? _currentLocation.name : 'Start here'});
         }
     }, [location]);
 
     return (
         <div className="relative h-screen w-screen md:max-w-screen-md md:mx-auto">
             <Map />
-
         </div>
     );
 }

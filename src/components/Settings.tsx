@@ -5,6 +5,8 @@ import { SaveData } from "@/lib/helpers";
 import { Input } from "./ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ModeToggle } from "./ModeToggle";
+import { FileDown } from "lucide-react";
 
 function Settings() {
 
@@ -30,10 +32,10 @@ function Settings() {
                 const data = e.target?.result;
                 if (typeof data === 'string') {
                     const parsedData = JSON.parse(data);
-                    const filteredLists = parsedData.lists.filter((list: any) => 
+                    const filteredLists = parsedData.lists.filter((list: any) =>
                         !savedLists.some((savedList: any) => savedList.id === list.id)
                     );
-                    const filteredLocations = parsedData.locations.filter((location: any) => 
+                    const filteredLocations = parsedData.locations.filter((location: any) =>
                         !savedLocations.some((savedLocation: any) => savedLocation.id === location.id)
                     );
                     let message = '';
@@ -45,7 +47,7 @@ function Settings() {
                     }
                     appendSavedLists(filteredLists);
                     appendSavedLocations(filteredLocations);
-                    toast({                        
+                    toast({
                         description: message,
                     });
                 }
@@ -59,10 +61,22 @@ function Settings() {
             <PageHeader headerText="Settings" />
             <Card>
                 <CardHeader>
-                    <CardTitle>Export Data</CardTitle>                    
+                    <CardTitle>Dark Mode</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Button onClick={exportData} >Export</Button>
+                    <ModeToggle />
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Export Data</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Button onClick={exportData} >
+                        <FileDown />
+                        <span>Export</span>
+                    </Button>
                 </CardContent>
             </Card>
             <Card>

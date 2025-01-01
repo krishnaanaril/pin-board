@@ -104,7 +104,7 @@ export function SaveListForm({ editList, setOpen }: { editList?: ListDetails, se
                         <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="List Name" {...field} className="col-span-3" />
+                                <Input placeholder="List Name" {...field} className="col-span-3" autoComplete="on" />
                             </FormControl>
                             <FormDescription>
                                 Enter a unique name

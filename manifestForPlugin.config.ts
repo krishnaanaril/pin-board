@@ -476,19 +476,47 @@ export const manifestForPlugin: Partial<VitePWAOptions> = {
             {
                 "name": "Saved Places",
                 "url": "/saved",
-                "short_name": "Saved"
+                "short_name": "Saved",
+                "icons": [
+                    {
+                        src: "bookmark.svg",
+                        sizes: "any",
+                        type: "image/svg+xml",
+                    }
+                ]
             },
             {
                 "name": "Lists",
-                "url": "/lists"
+                "url": "/lists",
+                "icons": [
+                    {
+                        src: "list.svg",
+                        sizes: "any",
+                        type: "image/svg+xml",
+                    }
+                ]
             },
             {
                 "name": "Settings",
-                "url": "/settings"
+                "url": "/settings",
+                "icons": [
+                    {
+                        src: "settings.svg",
+                        sizes: "any",
+                        type: "image/svg+xml",
+                    }
+                ]
             },
             {
                 "name": "About",
-                "url": "/about"
+                "url": "/about",
+                "icons": [
+                    {
+                        src: "info.svg",
+                        sizes: "any",
+                        type: "image/svg+xml",
+                    }
+                ]
             },
         ],
         categories: [
