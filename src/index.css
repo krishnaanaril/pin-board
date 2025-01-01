@@ -58,3 +58,10 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+  @apply dark:brightness-90 dark:invert dark:contrast-125 dark:hue-rotate-180 dark:saturate-150;
+}
