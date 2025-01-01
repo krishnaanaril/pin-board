@@ -23,7 +23,7 @@ export function SearchForm() {
     });
 
     const onSubmit: SubmitHandler<z.infer<typeof searchFormSchema>> = (data) => {
-        navigate(`/search?q=${data.q}`);
+        navigate(`/search?q=${data.q}`, {viewTransition: true});
     };
     const onInvalid: SubmitErrorHandler<z.infer<typeof searchFormSchema>> = (data) => {
         console.error(data);

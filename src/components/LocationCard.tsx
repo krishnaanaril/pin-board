@@ -54,7 +54,7 @@ function LocationCard({ location }: { location: LocationDetailsWithList }) {
                     {location.note || 'No note'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Link to={`/?id=${location.id}`}>
+                    <Link to={`/?id=${location.id}`} viewTransition>
                         <Button id="view-button">
                             <Eye />
                             View

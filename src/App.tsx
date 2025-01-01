@@ -44,11 +44,11 @@ function App() {
         )}
 
         <div className='bg-opacity-50 py-2 backdrop-blur-lg flex flex-row justify-between max-w-screen-md md:mx-auto w-full md:w-screen-sm md:rounded-full md:mb-2'>
-          <Link className='w-1/3 flex flex-col items-center' id="saved-link" to="/saved">
+          <Link className='w-1/3 flex flex-col items-center' id="saved-link" to="/saved" viewTransition>
             <Bookmark />
             Saved
           </Link>
-          <Link className='w-1/3 flex flex-col items-center' id="search-link" to="/">
+          <Link className='w-1/3 flex flex-col items-center' id="search-link" to="/" viewTransition>
             <Search />
             Search
           </Link>

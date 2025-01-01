@@ -57,7 +57,7 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                     {list.description || 'No description'}
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                    <Link to={`/saved?listId=${list.id}`}>
+                    <Link to={`/saved?listId=${list.id}`} viewTransition>
                         <Button id="view-button">
 
                             <Eye />

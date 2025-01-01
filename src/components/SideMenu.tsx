@@ -16,8 +16,8 @@ function SideMenu() {
     const [open, setOpen] = useState(false);
 
     function linkClick(path: string) {
-        navigate(path);
         setOpen(false);
+        navigate(path, {viewTransition: true});        
     }
 
     return (
