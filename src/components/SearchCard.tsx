@@ -10,7 +10,8 @@ export function SearchCard({ list }: { list: LocationSearchResult }) {
     const navigate = useNavigate();
 
     function handleViewClick(list: LocationSearchResult) {
-        updateActivePosition({ lat: parseFloat(list.lat), lng: parseFloat(list.lon) });
+        console.log(list);
+        updateActivePosition({ lat: parseFloat(list.lat), lng: parseFloat(list.lon), text: list.display_name });
         navigate('/');
     }
 

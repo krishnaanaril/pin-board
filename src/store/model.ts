@@ -3,6 +3,10 @@ export interface LatLng {
     lng: number
 }
 
+export interface ActivePositionInfo extends LatLng {
+    text: string
+}
+
 export interface LocationDetails {
     id: string,
     name: string,
@@ -71,9 +75,9 @@ export interface LocationSearchResult {
 
 export interface PinBoardState {
     savedLocations: LocationDetails[];
-    activePosition: LatLng | null;
+    activePosition: ActivePositionInfo | null;
     savedLists: ListDetails[];
-    updateActivePosition: (newPosition: LatLng | null) => void;
+    updateActivePosition: (newPosition: ActivePositionInfo | null) => void;
     addSavedLocation: (newLocation: LocationDetails) => void;
     updateSavedLocation: (id: string, newLocation: LocationDetails) => void;
     deleteSavedLocation: (id: string) => void;

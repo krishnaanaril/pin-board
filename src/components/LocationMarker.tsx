@@ -7,13 +7,13 @@ function LocationMarker() {
     const {activePosition,  updateActivePosition} = usePinBoardStore();
     const map = useMapEvents({
         click(e: any) {            
-            updateActivePosition(e.latlng);
+            updateActivePosition({...e.latlng, text: 'New location'});
         },
         locationerror(e: any) {
             console.error(e);
         },
         locationfound(e: any) {
-            updateActivePosition(e.latlng);
+            updateActivePosition({...e.latlng, text: 'You are here'});
             map.flyTo(e.latlng, map.getZoom());
         },
     });
@@ -30,7 +30,7 @@ function LocationMarker() {
 
     return activePosition === null ? null : (
         <Marker position={activePosition}>
-            <Popup>You are here</Popup>
+            <Popup>{activePosition.text}</Popup>
         </Marker>
     )
 }

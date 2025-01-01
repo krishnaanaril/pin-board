@@ -11,6 +11,7 @@ function Home() {
     const location = useLocation();
 
     useEffect(() => {
+        document.title = "Pin Board: Save your locations";
         const idQuery = searchParams.get('id');
         const defaultPosition: LatLng = {
             lat: 51.505,
@@ -22,7 +23,7 @@ function Home() {
 
         if (_currentLocation) {
             const currentPosition = _currentLocation.position ?? defaultPosition;
-            updateActivePosition(currentPosition);
+            updateActivePosition({...currentPosition, text: _currentLocation.position ? _currentLocation.name : 'Start here'});
         }
     }, [location]);
 
