@@ -19,11 +19,9 @@ function LocationMarker() {
     });
 
     useEffect(() => {
-        if(!activePosition) {           
-            console.log('map locate') ;
+        if(!activePosition) {                       
             map.locate();
-        } else {
-            console.log(activePosition);
+        } else {            
             map.flyTo(activePosition, map.getZoom());
         }
     }, [map, activePosition]);

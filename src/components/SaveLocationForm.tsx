@@ -70,8 +70,7 @@ export function SaveLocationForm({ editLocation, setOpen }: { editLocation?: Loc
         });
     }, [editLocation]);
 
-    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {
-        console.log(data);
+    const onSubmit: SubmitHandler<z.infer<typeof LocationFormSchema>> = data => {        
         const newName: string = data.name.trim();
         if (action === 'Edit') {
             const newLocation: LocationDetails = {
