@@ -5,19 +5,10 @@ import SaveList from "./SaveList";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { useToast } from "@/hooks/use-toast";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { dateInAgoFormat } from "@/lib/helpers";
 import { Eye, Trash2 } from "lucide-react";
+import { Alert } from "./Alert";
 
 function ListCard({ list }: { list: ListDetailsWithPlaces }) {
 
@@ -77,36 +68,21 @@ function ListCard({ list }: { list: ListDetailsWithPlaces }) {
                     <SaveList editList={list} />
                     <Button id="delete-button" variant="destructive" onClick={handleDeleteClick}><Trash2 />Delete</Button>
                 </CardFooter>
-            </Card>
-            <AlertDialog open={open2} onOpenChange={setOpen2}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>You won't be able to proceed!</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This list is being used by some locations. Please remove the list from those locations before deleting.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={deleteOkayClick}>Okay</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-            <AlertDialog open={open} onOpenChange={setOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete your
-                            list.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => deleteContinueClick(list)}>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            </Card>            
+            <Alert 
+                openAlert={open2} 
+                setOpenAlert={setOpen2} action={deleteOkayClick} 
+                actionText="Okay" 
+                cancelText="Cancel" 
+                title="You won't be able to proceed!" 
+                description="This list is being used by some locations. Please remove the list from those locations before deleting." />            
+            <Alert 
+                openAlert={open} 
+                setOpenAlert={setOpen} action={() => deleteContinueClick(list)} 
+                actionText="Continue" 
+                cancelText="Cancel" 
+                title="Are you absolutely sure?" 
+                description="This action cannot be undone. This will permanently delete your list." />            
         </>
     );
 }

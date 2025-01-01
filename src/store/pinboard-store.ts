@@ -1,6 +1,6 @@
 import { create, StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { ActivePositionInfo, LatLng, ListDetails, LocationDetails, PinBoardState } from './model';
+import { ActivePositionInfo, ListDetails, LocationDetails, PinBoardState } from './model';
 
 const pinBoardMiddlewares = (f: StateCreator<PinBoardState, [], []>) => devtools(persist(f, { name: 'PinBoardStore' }));
 

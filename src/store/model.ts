@@ -87,3 +87,13 @@ export interface PinBoardState {
     appendSavedLocations: (newLocations: LocationDetails[]) => void;
     appendSavedLists: (newLists: ListDetails[]) => void;
 }
+
+export interface AlertProps {
+    openAlert: boolean;
+    setOpenAlert: (open: boolean) => void;
+    title: string;
+    description: string;
+    cancelText: string;
+    actionText: string;
+    action: () => void;
+}
