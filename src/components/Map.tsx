@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import { AttributionControl, MapContainer, TileLayer } from "react-leaflet";
 import LocationMarker from "./LocationMarker";
 import MapPlaceholder from "./MapPlaceholder";
 import usePinBoardStore from "@/store/pinboard-store";
@@ -14,11 +14,13 @@ function Map() {
             zoom={15}
             scrollWheelZoom={false}
             style={{ height: '100%', width: '100%'}}
+            attributionControl={false}
             placeholder={<MapPlaceholder />}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            <AttributionControl position="topright" />
             <LocationMarker />
         </MapContainer>
         </div>
