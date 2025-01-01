@@ -40,7 +40,7 @@ export function SearchForm() {
                             {/* <FormMessage /> */}
                             {/* <FormLabel>Name</FormLabel> */}
                             <FormControl>
-                                <Input placeholder="Search" {...field} />
+                                <Input placeholder="Search" {...field} autoComplete="on" />
                             </FormControl>
                             {/* <FormDescription>
                                         Enter a unique name

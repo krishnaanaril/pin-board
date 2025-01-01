@@ -123,7 +123,7 @@ export function SaveLocationForm({ editLocation, setOpen }: { editLocation?: Loc
                                 <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Location Name" {...field} className="col-span-3" />
+                                        <Input placeholder="Location Name" {...field} className="col-span-3" autoComplete="on"/>
                                     </FormControl>
                                     <FormDescription>
                                         Enter a unique name
@@ -138,8 +138,7 @@ export function SaveLocationForm({ editLocation, setOpen }: { editLocation?: Loc
                             render={({ field }) => (
                                 <FormItem className="my-4 mt-auto flex flex-col gap-2 px-4">
                                     <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        {/* <Input placeholder="Location Name" {...field} className="col-span-3" /> */}
+                                    <FormControl>                                        
                                         <Select defaultValue={field.value?.toString()} onValueChange={(value) => field.onChange(value)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select a list" />
